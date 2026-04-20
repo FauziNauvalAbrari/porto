@@ -4,11 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Portfolio resmi Muhammad Fauzi Nauval, Web Developer dengan fokus Full Stack dan Cloud Computing. Menampilkan project, sertifikat, pengalaman, dan kontak profesional.">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://fauzidev.vercel.app/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Muhammad Fauzi Nauval | Web Developer Portfolio">
+        <meta property="og:description" content="Lihat project, sertifikat, skill, dan pengalaman Muhammad Fauzi Nauval di bidang web development dan cloud computing.">
+        <meta property="og:url" content="https://fauzidev.vercel.app/">
+        <meta property="og:image" content="https://fauzidev.vercel.app/img/person.jpg">
+        <meta property="og:site_name" content="Muhammad Fauzi Nauval Portfolio">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Muhammad Fauzi Nauval | Web Developer Portfolio">
+        <meta name="twitter:description" content="Portfolio web developer berisi project, sertifikat, skill, dan pengalaman profesional.">
+        <meta name="twitter:image" content="https://fauzidev.vercel.app/img/person.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- Updated to modern Google Fonts matching design brief -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Muhammad Fauzi Nauval",
+            "jobTitle": "Web Developer",
+            "url": "https://fauzidev.vercel.app/",
+            "image": "https://fauzidev.vercel.app/img/person.jpg",
+            "email": "mailto:muhammadfauzina@gmail.com",
+            "sameAs": [
+                "https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/",
+                "https://github.com/FauziNauvalAbrari",
+                "https://x.com/fauzinvl7/",
+                "https://instagram.com/fauzinvlv/"
+            ],
+            "knowsAbout": [
+                "Web Development",
+                "Cloud Computing",
+                "JavaScript",
+                "Node.js",
+                "Laravel",
+                "Google Cloud Platform"
+            ]
+        }
+        </script>
     <title>Fauzi Nauval - Portfolio</title>
 </head>
 <body>
@@ -48,6 +86,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Enhanced home section with gradient background and floating elements -->
     <section class="home" id="home">
         <div class="floating-shapes">
@@ -59,7 +99,7 @@
         <div class="home-container">
             <div class="home-img scroll-reveal-left">
                 <div class="img-wrapper">
-                    <img src="img/person.jpg" alt="Fauzi Nauval">
+                    <img src="img/person.jpg" alt="Fauzi Nauval" fetchpriority="high" loading="eager" decoding="async">
                     <div class="img-glow"></div>
                 </div>
             </div>
@@ -87,16 +127,16 @@
                 </div>
                 
                 <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" class="social-link linkedin">
+                    <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" class="social-link linkedin" target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn Muhammad Fauzi Nauval">
                         <i class="fa-brands fa-linkedin"></i>
                     </a>
-                    <a href="https://github.com/FauziNauvalAbrari/portofolio/blob/main/index.html" class="social-link github">
+                    <a href="https://github.com/FauziNauvalAbrari" class="social-link github" target="_blank" rel="noopener noreferrer me" aria-label="GitHub Muhammad Fauzi Nauval">
                         <i class="fa-brands fa-github"></i>
                     </a>
-                    <a href="https://x.com/fauzinvl7/" class="social-link twitter">
+                    <a href="https://x.com/fauzinvl7/" class="social-link twitter" target="_blank" rel="noopener noreferrer me" aria-label="Twitter Muhammad Fauzi Nauval">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="https://intagram.com/fauzinvlv/" class="social-link instagram">
+                    <a href="https://instagram.com/fauzinvlv/" class="social-link instagram" target="_blank" rel="noopener noreferrer me" aria-label="Instagram Muhammad Fauzi Nauval">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
                 </div>
@@ -119,7 +159,7 @@
     <section class="skills-section" id="skills">
         <div class="skills-container">
             <div class="skills-header scroll-reveal">
-                <h1>My <span>Skills</span></h1>
+                <h2>My <span>Skills</span></h2>
                 <p>Technologies and tools I work with</p>
             </div>
             
@@ -278,14 +318,14 @@
 <section class="certificates-section" id="certificates">
     <div class="certificates-container">
         <div class="certificates-header scroll-reveal">
-            <h1>My <span>Certificates</span></h1>
+            <h2>My <span>Certificates</span></h2>
             <p>Professional certifications and achievements</p>
         </div>
         
         <div class="certificates-grid scroll-reveal-scale">
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/BNSP.png" alt="BNSP Junior Web Developer Certificate">
+                    <img loading="lazy" decoding="async" src="img/BNSP.png" alt="BNSP Junior Web Developer Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -305,7 +345,7 @@
             
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/BA.jpg" alt="Cloud Computing Certificate">
+                    <img loading="lazy" decoding="async" src="img/BA.jpg" alt="Cloud Computing Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -322,7 +362,7 @@
 
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/MSIB.png" alt="Studi Independen Certificate">
+                    <img loading="lazy" decoding="async" src="img/MSIB.png" alt="Studi Independen Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -339,7 +379,7 @@
 
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/DCD-WEB.jpg" alt="Dasar Pemrograman Web Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-WEB.jpg" alt="Dasar Pemrograman Web Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -357,7 +397,7 @@
             
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/DCD-LOGIC.jpg" alt="Pengenalan ke Logika Pemrograman Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-LOGIC.jpg" alt="Pengenalan ke Logika Pemrograman Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -375,7 +415,7 @@
             
             <div class="certificate-card">
                 <div class="certificate-image">
-                    <img src="img/DCD-JS.jpg" alt="Dasar Pemrograman Javascript Certificate">    
+                    <img loading="lazy" decoding="async" src="img/DCD-JS.jpg" alt="Dasar Pemrograman Javascript Certificate">    
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -394,7 +434,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-BEJS.png" alt="Back-end dengan Javascript Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-BEJS.png" alt="Back-end dengan Javascript Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -413,7 +453,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-GIT.jpg" alt="Dasar Git dengan GitHub Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-GIT.jpg" alt="Dasar Git dengan GitHub Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -432,7 +472,7 @@
             <!-- Hidden Certificates -->
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-BECLOUD.jpg" alt="Back-end dengan Google Cloud Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-BECLOUD.jpg" alt="Back-end dengan Google Cloud Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -451,7 +491,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-ML.jpg" alt="Machine Learning dengan Google Cloud Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-ML.jpg" alt="Machine Learning dengan Google Cloud Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -470,7 +510,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-SW.jpg" alt="Pemrograman Menjadi Pengembang Software Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-SW.jpg" alt="Pemrograman Menjadi Pengembang Software Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -487,7 +527,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-GENAI.png" alt="Dasar Cloud dan Gen AI AWS Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-GENAI.png" alt="Dasar Cloud dan Gen AI AWS Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -505,7 +545,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-AI.jpg" alt="Dasar Artificial Intelligence Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-AI.jpg" alt="Dasar Artificial Intelligence Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -523,7 +563,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-Engineer.jpg" alt="Google Cloud Engineer Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-Engineer.jpg" alt="Google Cloud Engineer Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -542,7 +582,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DCD-SD.png" alt="Software Developer Certificate">
+                    <img loading="lazy" decoding="async" src="img/DCD-SD.png" alt="Software Developer Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -561,7 +601,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DT.png" alt="Design Thinking Certificate">
+                    <img loading="lazy" decoding="async" src="img/DT.png" alt="Design Thinking Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -578,7 +618,7 @@
             
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/EI.png" alt="Emotional Intelligence Certificate">
+                    <img loading="lazy" decoding="async" src="img/EI.png" alt="Emotional Intelligence Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -595,7 +635,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/DDT.png" alt="Digital Disruption & Transformation Certificate">
+                    <img loading="lazy" decoding="async" src="img/DDT.png" alt="Digital Disruption & Transformation Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -613,7 +653,7 @@
                         
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/SE.png" alt="Self Efficacy Certificate">
+                    <img loading="lazy" decoding="async" src="img/SE.png" alt="Self Efficacy Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -630,7 +670,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/FGA-DS.png" alt="Intermediate Data Science Certificate">
+                    <img loading="lazy" decoding="async" src="img/FGA-DS.png" alt="Intermediate Data Science Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -649,7 +689,7 @@
 
             <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
-                    <img src="img/FGA-WEB.png" alt="Junior Web Developer Digital Talent Certificate">
+                    <img loading="lazy" decoding="async" src="img/FGA-WEB.png" alt="Junior Web Developer Digital Talent Certificate">
                     <div class="certificate-overlay">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -682,7 +722,7 @@
     <section class="education-section" id="edu">
         <div class="education-container">
             <div class="education-header scroll-reveal">
-                <h1>My <span>Education</span></h1>
+                <h2>My <span>Education</span></h2>
                 <p>My academic journey and achievements</p>
             </div>
             
@@ -730,7 +770,7 @@
     <section class="experience-section" id="exp">
         <div class="experience-container">
             <div class="experience-header scroll-reveal">
-                <h1>My <span>Projects</span></h1>
+                <h2>My <span>Projects</span></h2>
                 <p>Here are some of my latest projects that showcase my skills.</p>
             </div>
             
@@ -739,7 +779,7 @@
                     <div class="slide active">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/jebakan.png" alt="Donation Website">
+                                <img loading="lazy" decoding="async" src="img/jebakan.png" alt="Donation Website">
                             </div>
                             <div class="slide-info">
                                 <h3>Jejak Kebaikan: Donation Platform</h3>
@@ -759,7 +799,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/genzz.png" alt="Movie Theater Website">
+                                <img loading="lazy" decoding="async" src="img/genzz.png" alt="Movie Theater Website">
                             </div>
                             <div class="slide-info">
                                 <h3>GenZ: Internal Data Integration and Monitoring System for Telkom Regional 5</h3>
@@ -776,7 +816,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/FR.png" alt="Fridge Recipe Application">
+                                <img loading="lazy" decoding="async" src="img/FR.png" alt="Fridge Recipe Application">
                             </div>
                             <div class="slide-info">
                                 <h3>Fridge Recipe: Smart Recipe Finder Based on Available Ingredients</h3>
@@ -797,7 +837,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/LDII.jpg" alt="LDII Website">
+                                <img loading="lazy" decoding="async" src="img/LDII.jpg" alt="LDII Website">
                             </div>
                             <div class="slide-info">
                                 <h3>LDII Makassar</h3>
@@ -818,7 +858,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/skb.jpg" alt="Portfolio Website">
+                                <img loading="lazy" decoding="async" src="img/skb.jpg" alt="Portfolio Website">
                             </div>
                             <div class="slide-info">
                                 <h3>Bupati Decree Submission System</h3>
@@ -839,7 +879,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/MIT.png" alt="Transkripsi MIT">
+                                <img loading="lazy" decoding="async" src="img/MIT.png" alt="Transkripsi MIT">
                             </div>
                             <div class="slide-info">
                                 <h3>Transcript of grades: STMIK Profesional Makassar</h3>
@@ -859,7 +899,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/RT.png" alt="Quran Learning Center">
+                                <img loading="lazy" decoding="async" src="img/RT.png" alt="Quran Learning Center">
                             </div>
                             <div class="slide-info">
                                 <h3>Rumah Tahfidz Website</h3>
@@ -879,7 +919,7 @@
                     <div class="slide">
                         <div class="slide-content">
                             <div class="slide-image">
-                                <img src="img/skbup.png" alt="SKB Ujung Pandang">
+                                <img loading="lazy" decoding="async" src="img/skbup.png" alt="SKB Ujung Pandang">
                             </div>
                             <div class="slide-info">
                                 <h3>Smart Admission using SAW</h3>
@@ -926,7 +966,7 @@
         <div class="contact-container">
             <div class="section-header scroll-reveal">
                 <div class="section-badge">Get In Touch</div>
-                <h1>Let's Create Something <span class="gradient-text">Amazing</span> Together</h1>
+                <h2>Let's Create Something <span class="gradient-text">Amazing</span> Together</h2>
                 <p>Ready to bring your ideas to life? Let's discuss your next project.</p>
             </div>
             
@@ -967,19 +1007,19 @@
                     <div class="social-media-card">
                         <h3>Connect With Me</h3>
                         <div class="social-links">
-                            <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" class="social-link linkedin">
+                            <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" class="social-link linkedin" target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn Muhammad Fauzi Nauval">
                                 <i class="fa-brands fa-linkedin"></i>
                                 <span>LinkedIn</span>
                             </a>
-                            <a href="https://github.com/FauziNauvalAbrari/portofolio/blob/main/index.html" class="social-link github">
+                            <a href="https://github.com/FauziNauvalAbrari" class="social-link github" target="_blank" rel="noopener noreferrer me" aria-label="GitHub Muhammad Fauzi Nauval">
                                 <i class="fa-brands fa-github"></i>
                                 <span>GitHub</span>
                             </a>
-                            <a href="https://x.com/fauzinvl7/" class="social-link twitter">
+                            <a href="https://x.com/fauzinvl7/" class="social-link twitter" target="_blank" rel="noopener noreferrer me" aria-label="Twitter Muhammad Fauzi Nauval">
                                 <i class="fa-brands fa-x-twitter"></i>
                                 <span>Twitter</span>
                             </a>
-                            <a href="https://intagram.com/fauzinvlv/" class="social-link instagram">
+                            <a href="https://instagram.com/fauzinvlv/" class="social-link instagram" target="_blank" rel="noopener noreferrer me" aria-label="Instagram Muhammad Fauzi Nauval">
                                 <i class="fa-brands fa-instagram"></i>
                                 <span>Instagram</span>
                             </a>

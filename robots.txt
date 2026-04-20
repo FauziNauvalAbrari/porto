@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fauzidev.vercel.app/sitemap.xml
