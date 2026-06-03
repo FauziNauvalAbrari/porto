@@ -91,6 +91,18 @@ button,
   }
 }
 
+/* Antigravity Particle Canvas Background */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent;
+}
+
 /* Added custom cursor styles */
 .custom-cursor {
   position: fixed;
@@ -485,45 +497,69 @@ nav a.active {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 14px 28px;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 12px 24px; /* Sleeker, more compact padding */
   border-radius: 12px;
   font-weight: 600;
   font-family: "DM Sans", sans-serif;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: none;
   cursor: none;
-  font-size: 1rem;
+  font-size: 0.95rem; /* Highly readable, SaaS-like scale */
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #0891b2, #06b6d4);
+  background: linear-gradient(135deg, #0891b2, #06b6d4);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+  box-shadow: 0 4px 15px rgba(8, 145, 178, 0.25);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
+  filter: brightness(1.05);
 }
 
 .btn-secondary {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #0891b2;
-  border: 2px solid #0891b2;
+  border: 2px solid rgba(8, 145, 178, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .btn-secondary:hover {
   background: #0891b2;
   color: #ffffff;
-  transform: translateY(-2px);
+  border-color: #0891b2;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(8, 145, 178, 0.25);
+}
+
+.btn-accent {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ec4899; /* Cohesive pink branding accent */
+  border: 2px solid rgba(236, 72, 153, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.btn-accent:hover {
+  background: linear-gradient(135deg, #ec4899, #f43f5e);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
 }
 
 /* Enhanced Skills Section with more proportional and precise layout */
 .skills-section {
   padding: 100px 0 80px;
-  background: #f9fafb;
+  background: transparent;
 }
 
 .skills-container {
@@ -554,90 +590,139 @@ nav a.active {
   font-size: 1.1rem;
 }
 
-/* More proportional grid layout with equal column widths */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 3rem;
+/* Refined Compact Marquee Showcase Styles */
+.skills-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Reduced from 2.5rem for tighter vertical flow */
+  margin-bottom: 2.5rem;
+  width: 100%;
 }
 
-.skill-category {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  min-height: 320px; /* Ensure equal height for all categories */
+.marquee-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Tighter gap between category title and row */
 }
 
-.skill-category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.skill-category h3 {
-  color: #0891b2;
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
+.marquee-row h3 {
   font-family: "Space Grotesk", sans-serif;
+  font-size: 1.05rem; /* Scaled down for subtle, professional categorization */
   font-weight: 600;
-  text-align: center; /* Center align category titles */
-}
-
-/* Grid layout for skills within each category for better proportion */
-.skills-group {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-/* More precise and proportional skill-item layout */
-.skill-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  background: rgba(248, 250, 252, 0.5);
-  border: 1px solid rgba(226, 232, 240, 0.5);
-}
-
-.skill-item:hover {
-  background: rgba(8, 145, 178, 0.08);
-  border-color: rgba(8, 145, 178, 0.2);
-  transform: translateX(5px);
-}
-
-/* More uniform and proportional skill icons */
-.skill-icon {
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(8, 145, 178, 0.1), rgba(6, 182, 212, 0.1));
-  border-radius: 12px;
   color: #0891b2;
-  font-size: 1.4rem;
-  transition: all 0.3s ease;
-  flex-shrink: 0; /* Prevent icon from shrinking */
+  margin-left: 0.5rem;
+  opacity: 0.95;
 }
 
-.skill-item:hover .skill-icon {
-  background: linear-gradient(135deg, rgba(8, 145, 178, 0.2), rgba(6, 182, 212, 0.2));
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+.marquee-container {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  padding: 4px 0; /* Compact row padding */
+  position: relative;
+  /* Premium fading mask at the edges */
+  mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
 }
 
-.skill-name {
-  flex: 1;
-  font-weight: 500;
+.marquee-track {
+  display: flex;
+  gap: 1.2rem; /* Reduced card spacing for premium balance */
+  width: max-content;
+  will-change: transform;
+}
+
+/* Eased glassmorphism badge cards (SaaS profile style) */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem; /* Clean and snug spacing */
+  padding: 0.55rem 1.2rem; /* Reduced vertical & horizontal padding by ~35% */
+  border-radius: 10px; /* Snugger borders for smaller badges */
+  background: rgba(255, 255, 255, 0.92); /* Higher opacity white to prevent canvas overlap visibility issues without blur */
+  border: 1px solid rgba(8, 145, 178, 0.22); /* Enhanced border contrast for readability */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
   color: #4b5563;
-  font-size: 1rem;
-  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.92rem; /* Elegant and highly readable font size (14.7px) */
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  user-select: none;
+  cursor: default;
+}
+
+.tech-badge i {
+  font-size: 1.15rem; /* Snug icon scaling to ~18.4px */
+  color: #0891b2;
+  transition: transform 0.25s ease;
+}
+
+/* Badge hover state */
+.tech-badge:hover {
+  transform: translateY(-3px) scale(1.04);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(8, 145, 178, 0.45);
+  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.16);
+  color: #0891b2;
+}
+
+.tech-badge:hover i {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* Animations */
+.scroll-left {
+  animation: marqueeScrollLeft 35s linear infinite; /* Slightly slowed down for premium readability */
+}
+
+.scroll-right {
+  animation: marqueeScrollRight 35s linear infinite;
+}
+
+/* Pause animations when hovering a row */
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Hardware-accelerated CSS animations using translate3d */
+@keyframes marqueeScrollLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeScrollRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skills-marquee {
+    gap: 1.2rem;
+  }
+  .tech-badge {
+    padding: 0.45rem 0.95rem;
+    font-size: 0.82rem;
+    gap: 0.45rem;
+    border-radius: 8px;
+  }
+  .tech-badge i {
+    font-size: 1.05rem;
+  }
+  .marquee-track.scroll-left {
+    animation-duration: 25s; /* Kept responsive scale */
+  }
+  .marquee-track.scroll-right {
+    animation-duration: 25s;
+  }
 }
 
 /* Fixed missing dot for skills-cta class */
@@ -664,7 +749,7 @@ nav a.active {
 /* Education Section */
 .education-section {
   padding: 100px 0 80px;
-  background: #f9fafb;
+  background: transparent;
 }
 
 .education-container {
@@ -780,7 +865,7 @@ nav a.active {
 /* Experience Section */
 .experience-section {
   padding: 100px 0 80px;
-  background: #ffffff;
+  background: transparent;
 }
 
 .experience-container {
@@ -845,26 +930,61 @@ nav a.active {
   display: flex;
   gap: 2rem;
   background: #ffffff;
-  padding: 2rem;
+  padding: 2rem; /* Clean 2rem padding */
   border-radius: 16px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  height: 400px; /* Increased from 400px to fully accommodate long paragraphs and images */
+  box-sizing: border-box;
 }
 
 .slide-image {
-  flex: 1;
+  flex: 1.1;
   min-width: 300px;
+  height: 100%; /* Matches the container height exactly */
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .slide-image img {
   width: 100%;
-  height: auto;
+  height: 100%; /* Fill container cleanly */
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+
+.slide-image:hover img {
+  transform: scale(1.05); /* Interactive scale highlight */
 }
 
 .slide-info {
-  flex: 1;
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto; /* Allow smooth scroll if text exceeds area */
+  padding-right: 0.5rem; /* Space for subtle scrollbar */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(8, 145, 178, 0.2) transparent;
+}
+
+/* Subtle premium scrollbar styling for text column */
+.slide-info::-webkit-scrollbar {
+  width: 4px;
+}
+
+.slide-info::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slide-info::-webkit-scrollbar-thumb {
+  background: rgba(8, 145, 178, 0.2);
+  border-radius: 10px;
+}
+
+.slide-info::-webkit-scrollbar-thumb:hover {
+  background: rgba(8, 145, 178, 0.4);
 }
 
 .slide-info h3 {
@@ -963,7 +1083,6 @@ nav a.active {
   transform: scale(1.2);
 }
 
-/* Enhanced contact section with modern card design */
 .contact-section {
   padding: 100px 0 80px;
   background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
@@ -1020,8 +1139,7 @@ nav a.active {
 }
 
 .info-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.12);
   padding: 2rem;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1070,8 +1188,7 @@ nav a.active {
 }
 
 .social-media-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.12);
   padding: 2rem;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1109,8 +1226,7 @@ nav a.active {
 }
 
 .contact-form-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.12);
   padding: 2rem;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1316,7 +1432,7 @@ nav a.active {
 /* Comprehensive certificates section styling with grid layout and hover effects */
 .certificates-section {
   padding: 100px 0;
-  background: #ffffff;
+  background: transparent;
 }
 
 .certificates-container {
@@ -1780,6 +1896,7 @@ nav a.active {
   .slide-content {
     flex-direction: column;
     padding: 1.5rem;
+    height: auto; /* Reset desktop fixed height on mobile */
   }
 
   .slide-image {
@@ -1914,6 +2031,7 @@ nav a.active {
 
   .slide-content {
     padding: 1rem;
+    height: auto; /* Reset desktop fixed height on very small mobile */
   }
 
   .slide-image img {

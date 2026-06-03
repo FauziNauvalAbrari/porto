@@ -50,6 +50,9 @@
     <title>Fauzi Nauval - Portfolio</title>
 </head>
 <body>
+    <!-- Fullscreen canvas background -->
+    <canvas id="particle-canvas"></canvas>
+
     <!-- Added simple loading screen with fade-out animation -->
     <div class="loading-screen">
         <div class="loading-content">
@@ -150,6 +153,10 @@
                         <span>View Work</span>
                         <i class="fas fa-eye"></i>
                     </a>
+                    <a href="file/Resume-MuhammadFauziNauval-FS.pdf" class="btn btn-accent" target="_blank" download>
+                        <span>Download CV</span>
+                        <i class="fas fa-download"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -162,151 +169,99 @@
                 <h2>My <span>Skills</span></h2>
                 <p>Technologies and tools I work with</p>
             </div>
-            
-            <div class="skills-grid">
-                <!-- Reorganized skills into more balanced categories with grid layout -->
-                <div class="skill-category scroll-reveal">
+                    <div class="skills-marquee scroll-reveal">
+                <!-- Row 1: Frontend & UI (Right to Left) -->
+                <div class="marquee-row">
                     <h3>Frontend & UI</h3>
-                    <div class="skills-group">
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-html5"></i>
-                            </div>
-                            <span class="skill-name">HTML5</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-css3"></i>
-                            </div>
-                            <span class="skill-name">CSS3</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-js"></i>
-                            </div>
-                            <span class="skill-name">JavaScript</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-react"></i>
-                            </div>
-                            <span class="skill-name">React</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-bootstrap"></i>
-                            </div>
-                            <span class="skill-name">Bootstrap</span>
+                    <div class="marquee-container">
+                        <div class="marquee-track scroll-left">
+                            <!-- Half 1 -->
+                            <div class="tech-badge"><i class="fa-brands fa-html5"></i><span>HTML5</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-css3"></i><span>CSS3</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-react"></i><span>React</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-bootstrap"></i><span>Bootstrap</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-html5"></i><span>HTML5</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-css3"></i><span>CSS3</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-react"></i><span>React</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-bootstrap"></i><span>Bootstrap</span></div>
+                            
+                            <!-- Half 2 -->
+                            <div class="tech-badge"><i class="fa-brands fa-html5"></i><span>HTML5</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-css3"></i><span>CSS3</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-react"></i><span>React</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-bootstrap"></i><span>Bootstrap</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-html5"></i><span>HTML5</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-css3"></i><span>CSS3</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-react"></i><span>React</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-bootstrap"></i><span>Bootstrap</span></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="skill-category scroll-reveal">
-                    <h3>Backend & Development</h3>
-                    <div class="skills-group">
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-node-js"></i>
-                            </div>
-                            <span class="skill-name">Node.js</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-superpowers"></i>
-                            </div>
-                            <span class="skill-name">Odoo Framework</span>
-                        </div>
 
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-python"></i>
-                            </div>
-                            <span class="skill-name">Python</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-php"></i>
-                            </div>
-                            <span class="skill-name">PHP</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <span class="skill-name">Express.js</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-laravel"></i>
-                            </div>
-                            <span class="skill-name">Laravel</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-java"></i>
-                            </div>
-                            <span class="skill-name">Java</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-git-alt"></i>
-                            </div>
-                            <span class="skill-name">Git</span>
+                <!-- Row 2: Backend (Left to Right) -->
+                <div class="marquee-row">
+                    <h3>Backend</h3>
+                    <div class="marquee-container">
+                        <div class="marquee-track scroll-right">
+                            <!-- Half 1 -->
+                            <div class="tech-badge"><i class="fa-brands fa-laravel"></i><span>Laravel</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-php"></i><span>PHP</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-node-js"></i><span>Node.js</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Express.js</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-python"></i><span>Python</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-java"></i><span>Java</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-superpowers"></i><span>Odoo ERP</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
+                            
+                            <!-- Half 2 -->
+                            <div class="tech-badge"><i class="fa-brands fa-laravel"></i><span>Laravel</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-php"></i><span>PHP</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-node-js"></i><span>Node.js</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Express.js</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-python"></i><span>Python</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-java"></i><span>Java</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-superpowers"></i><span>Odoo ERP</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="skill-category scroll-reveal">
+
+                <!-- Row 3: Database & Cloud (Right to Left) -->
+                <div class="marquee-row">
                     <h3>Database & Cloud</h3>
-                    <div class="skills-group">
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <span class="skill-name">MySQL</span>
-                        </div>
-
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <span class="skill-name">PostgreSQL</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-google"></i>
-                            </div>
-                            <span class="skill-name">Google Cloud</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fa-brands fa-aws"></i>
-                            </div>
-                            <span class="skill-name">AWS</span>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <span class="skill-name">Hostinger</span>
+                    <div class="marquee-container">
+                        <div class="marquee-track scroll-left">
+                            <!-- Half 1 -->
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>MySQL</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-google"></i><span>Google Cloud</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-aws"></i><span>AWS</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Hostinger</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>MySQL</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-google"></i><span>Google Cloud</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-aws"></i><span>AWS</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Hostinger</span></div>
+                            
+                            <!-- Half 2 -->
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>MySQL</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-google"></i><span>Google Cloud</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-aws"></i><span>AWS</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Hostinger</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>MySQL</span></div>
+                            <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-google"></i><span>Google Cloud</span></div>
+                            <div class="tech-badge"><i class="fa-brands fa-aws"></i><span>AWS</span></div>
+                            <div class="tech-badge"><i class="fas fa-server"></i><span>Hostinger</span></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></div>
             
             <div class="skills-cta scroll-reveal">
                 <a href="#contact" class="btn">Let's Work Together</a>
@@ -356,6 +311,25 @@
                     <p class="certificate-date">2025</p>
                     <div class="certificate-skills">
                         <span class="skill-tag">Google Cloud Platform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certificate-card">
+                <div class="certificate-image">
+                    <img loading="lazy" decoding="async" src="img/Kalla.png" alt="Magang Hub Certificate">
+                    <div class="certificate-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="certificate-info">
+                    <h3>ERP Developer Specialist</h3>
+                    <p class="certificate-issuer">MagangHub x Kalla Group</p>
+                    <p class="certificate-date">2026</p>
+                    <div class="certificate-skills">
+                        <span class="skill-tag">Odoo ERP</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Python</span>
                     </div>
                 </div>
             </div>
@@ -413,7 +387,7 @@
                 </div>
             </div>
             
-            <div class="certificate-card">
+            <div class="certificate-card hidden-certificate">
                 <div class="certificate-image">
                     <img loading="lazy" decoding="async" src="img/DCD-JS.jpg" alt="Dasar Pemrograman Javascript Certificate">    
                     <div class="certificate-overlay">
@@ -1453,5 +1427,7 @@
             }, 100);
         });
     </script>
+    <!-- Antigravity Interactive Particle Background Script -->
+    <script src="particles.js"></script>
 </body>
 </html>
