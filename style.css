@@ -1896,15 +1896,18 @@ nav a.active {
   .slide-content {
     flex-direction: column;
     padding: 1.5rem;
-    height: auto; /* Reset desktop fixed height on mobile */
+    height: 520px; /* Locked height on mobile as well for complete stability */
+    box-sizing: border-box;
   }
 
   .slide-image {
     min-width: auto;
+    height: 180px; /* Locked image height on mobile */
+    flex-shrink: 0;
   }
 
   .slide-image img {
-    height: 200px;
+    height: 100%;
   }
 
   .project-tags {
@@ -2031,11 +2034,17 @@ nav a.active {
 
   .slide-content {
     padding: 1rem;
-    height: auto; /* Reset desktop fixed height on very small mobile */
+    height: 480px; /* Locked height on very small mobile */
+    box-sizing: border-box;
+  }
+
+  .slide-image {
+    height: 140px;
+    flex-shrink: 0;
   }
 
   .slide-image img {
-    height: 150px;
+    height: 100%;
   }
 
   .nav-btn {
