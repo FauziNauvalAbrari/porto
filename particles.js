@@ -38,13 +38,26 @@ class AntigravityParticles {
         this.maxRadius = 0;
         this.time = 0;
         
-        // Initialize HSL color stops for the gradient (Blue -> Purple -> Pink -> Orange)
-        this.colorStops = [
-            { h: 195, s: 85, l: 60 }, // Bright Cyan/Blue
-            { h: 265, s: 80, l: 65 }, // Purple
-            { h: 325, s: 85, l: 65 }, // Hot Pink
-            { h: 25, s: 95, l: 60 }   // Warm Orange
-        ];
+        // Initialize HSL color stops for the gradient based on theme
+        this.themes = {
+            light: [
+                { h: 195, s: 75, l: 45 }, // Softer Cyan/Blue for readability
+                { h: 265, s: 60, l: 50 }, // Softer Purple
+                { h: 325, s: 70, l: 50 }, // Softer Pink
+                { h: 200, s: 85, l: 40 }  // Deep Cyan
+            ],
+            dark: [
+                { h: 195, s: 85, l: 60 }, // Bright Cyan/Blue
+                { h: 265, s: 80, l: 65 }, // Purple
+                { h: 325, s: 85, l: 65 }, // Hot Pink
+                { h: 25, s: 95, l: 60 }   // Warm Orange
+            ]
+        };
+
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 
+                             localStorage.getItem('theme') || 
+                             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        this.colorStops = this.themes[currentTheme] || this.themes.light;
 
         this.init();
     }
@@ -384,6 +397,24 @@ class AntigravityParticles {
             }
             this.ctx.fill();
         }
+    }
+
+    /**
+     * Dynamically change the particle colors based on the current theme.
+     */
+    setTheme(theme) {
+        if (!this.themes[theme]) return;
+        this.colorStops = this.themes[theme];
+        
+        // Recalculate color properties for each particle using the new theme stops
+        const numRings = Math.min(this.config.maxRings, Math.floor(this.maxRadius / this.config.ringSpacing));
+        
+        this.particles.forEach(p => {
+            const normRadius = p.ringIndex / numRings;
+            const baseColor = this.interpolateColor(normRadius);
+            p.baseColor = baseColor;
+            p.colorString = `hsla(${baseColor.h}, ${baseColor.s}%, ${baseColor.l}%,`;
+        });
     }
 }
 

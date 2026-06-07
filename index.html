@@ -50,6 +50,14 @@
     <title>Fauzi Nauval - Portfolio</title>
 </head>
 <body>
+    <!-- Render-blocking theme script to prevent flash of light theme -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
     <!-- Fullscreen canvas background -->
     <canvas id="particle-canvas"></canvas>
 
@@ -80,6 +88,10 @@
                 <a href="#exp">Projects</a>
                 <a href="#contact">Contact</a>
             </nav>
+
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
             
             <div class="mobile-menu" onclick="toggleMobileMenu()">
                 <span></span>
@@ -1118,6 +1130,40 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const themeToggleIcon = themeToggleBtn.querySelector('i');
+            
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // Update icon
+                if (theme === 'dark') {
+                    themeToggleIcon.className = 'fas fa-sun';
+                } else {
+                    themeToggleIcon.className = 'fas fa-moon';
+                }
+                
+                // Update particles background if initialized
+                if (window.antigravityBackground && typeof window.antigravityBackground.setTheme === 'function') {
+                    window.antigravityBackground.setTheme(theme);
+                }
+            }
+
+            // Get initial theme
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 
+                                 localStorage.getItem('theme') || 
+                                 (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            
+            applyTheme(currentTheme);
+
+            themeToggleBtn.addEventListener('click', () => {
+                const activeTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
             const loadingScreen = document.querySelector('.loading-screen');
             setTimeout(() => {
                 loadingScreen.classList.add('fade-out');
