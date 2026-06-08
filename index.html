@@ -162,7 +162,7 @@
                         <span>Hire Me</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#experience" class="btn btn-secondary">
+                    <a href="#projects" class="btn btn-secondary">
                         <span>View Work</span>
                         <i class="fas fa-eye"></i>
                     </a>
@@ -714,6 +714,11 @@
             </div>
             
             <div class="education-timeline">
+                <!-- Interactive Progress Line -->
+                <div class="education-line-container">
+                    <div class="education-line-progress"></div>
+                </div>
+                
                 <div class="timeline-item scroll-reveal-left">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
@@ -789,7 +794,7 @@
                         <ul class="panel-desc">
                             <li>Developed and customized Odoo modules for enterprise business requirements across Kalla Group subsidiaries, supporting 100+ fleet vehicles in the Kalla Transportation & Logistics division.</li>
                             <li>Built backend system and REST APIs for Jejak Kebaikan, an internal donation platform that processed IDR 12M+ across 2 campaigns with 50+ active users.</li>
-                            <li>Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles — eliminated manual tracking and reduced document processing time.</li>
+                            <li>Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles, eliminated manual tracking and reduced document processing time.</li>
                             <li>Integrated Google Drive API (OAuth2) for document storage and implemented scheduling with retry mechanism for background tasks.</li>
                         </ul>
                     </div>
@@ -1670,14 +1675,24 @@
                 });
             }
             
-            // Smooth scrolling for navigation links
-            navLinks.forEach(link => {
+            // Smooth scrolling for all section jump links
+            const scrollLinks = document.querySelectorAll('a[href^="#"]');
+            scrollLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const targetId = this.getAttribute('href');
                     
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    this.classList.add('active');
+                    // Skip links that are not local hashes
+                    if (!targetId || !targetId.startsWith('#')) return;
+                    
+                    e.preventDefault();
+                    
+                    // Update active class on nav links immediately
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                        if (navLink.getAttribute('href') === targetId || (targetId === '#' && navLink.getAttribute('href') === '#')) {
+                            navLink.classList.add('active');
+                        }
+                    });
                     
                     isScrollingFromClick = true;
                     
@@ -1703,10 +1718,53 @@
                 });
             });
             
-            window.addEventListener('scroll', updateActiveNavLink);
+            // --- Education Timeline Scroll Progress ---
+            const eduTimeline = document.querySelector('.education-timeline');
+            const eduProgress = document.querySelector('.education-line-progress');
+            const eduItems = document.querySelectorAll('.education-timeline .timeline-item');
             
-            // Initial call to set active link on page load
+            function updateEduTimelineProgress() {
+                if (!eduTimeline || !eduProgress) return;
+                
+                const rect = eduTimeline.getBoundingClientRect();
+                const viewHeight = window.innerHeight;
+                
+                // Calculate visible progress percentage
+                const startThreshold = viewHeight * 0.7;
+                const totalHeight = rect.height;
+                const scrolledDistance = startThreshold - rect.top;
+                
+                let progressPercent = 0;
+                if (scrolledDistance > 0) {
+                    progressPercent = (scrolledDistance / totalHeight) * 100;
+                    progressPercent = Math.min(Math.max(progressPercent, 0), 100);
+                }
+                
+                eduProgress.style.height = `${progressPercent}%`;
+                
+                // Activate timeline items as the progress line reaches them
+                eduItems.forEach(item => {
+                    const dot = item.querySelector('.timeline-dot');
+                    if (dot) {
+                        const dotRect = dot.getBoundingClientRect();
+                        if (dotRect.top < viewHeight * 0.6) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', () => {
+                updateActiveNavLink();
+                updateEduTimelineProgress();
+            });
+            window.addEventListener('resize', updateEduTimelineProgress);
+            
+            // Initial call to set active link and timeline progress on page load
             updateActiveNavLink();
+            updateEduTimelineProgress();
 
             function showToast(message, isError = false) {
                 const toast = document.getElementById('toast');
