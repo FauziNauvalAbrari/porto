@@ -85,7 +85,8 @@
                 <a href="#skills">Skills</a>
                 <a href="#certificates">Certificates</a>
                 <a href="#edu">Education</a>
-                <a href="#exp">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </nav>
 
@@ -161,7 +162,7 @@
                         <span>Hire Me</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#exp" class="btn btn-secondary">
+                    <a href="#experience" class="btn btn-secondary">
                         <span>View Work</span>
                         <i class="fas fa-eye"></i>
                     </a>
@@ -752,8 +753,81 @@
         </div>
     </section>
     
-    <!-- Experience Section converted to Interactive Slider -->
-    <section class="experience-section" id="exp">
+    <!-- Work Experience Section -->
+    <section class="work-experience-section" id="experience">
+        <div class="work-experience-container">
+            <div class="work-experience-header scroll-reveal">
+                <h2>My <span>Experience</span></h2>
+                <p>My career path and professional contributions</p>
+            </div>
+            
+            <div class="experience-tabs-wrapper scroll-reveal-scale">
+                <!-- Tab Buttons -->
+                <div class="experience-tabs">
+                    <button class="tab-btn active" data-index="0">
+                        <span class="tab-company">PT Hadji Kalla</span>
+                    </button>
+                    <button class="tab-btn" data-index="1">
+                        <span class="tab-company">PT Telkom Indonesia</span>
+                    </button>
+                    <button class="tab-btn" data-index="2">
+                        <span class="tab-company">Bangkit Academy</span>
+                    </button>
+                    <!-- Sliding active indicator -->
+                    <div class="tab-indicator"></div>
+                </div>
+                
+                <!-- Tab Panels -->
+                <div class="experience-panels">
+                    <!-- Panel 0: PT Hadji Kalla -->
+                    <div class="experience-panel active" id="panel-0">
+                        <div class="panel-header">
+                            <h3 class="panel-title">ERP Developer Specialist <span class="at">@</span> <a href="https://kalla.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Hadji Kalla</a></h3>
+                            <span class="panel-date">Oct 2025 - Apr 2026</span>
+                        </div>
+                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> Makassar, Indonesia</div>
+                        <ul class="panel-desc">
+                            <li>Developed and customized Odoo modules for enterprise business requirements across Kalla Group subsidiaries, supporting 100+ fleet vehicles in the Kalla Transportation & Logistics division.</li>
+                            <li>Built backend system and REST APIs for Jejak Kebaikan, an internal donation platform that processed IDR 12M+ across 2 campaigns with 50+ active users.</li>
+                            <li>Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles — eliminated manual tracking and reduced document processing time.</li>
+                            <li>Integrated Google Drive API (OAuth2) for document storage and implemented scheduling with retry mechanism for background tasks.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Panel 1: PT Telkom Indonesia -->
+                    <div class="experience-panel" id="panel-1">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Software Developer <span class="at">@</span> <a href="https://www.telkom.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Telkom Indonesia</a></h3>
+                            <span class="panel-date">Apr 2025 - Jun 2025</span>
+                        </div>
+                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> Regional 5 &bull; Makassar, Indonesia</div>
+                        <ul class="panel-desc">
+                            <li>Built GenZ, an internal web platform (Laravel/PHP) for cross-departmental data centralization and real-time monitoring across modules including inventory, attendance, and activity log.</li>
+                            <li>Detected and formally reported 20+ sensitive data leak incidents through systematic cyber patrol activities, creating a structured early-warning workflow.</li>
+                            <li>Supported network infrastructure setup including device configuration and internal connectivity.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Panel 2: Bangkit Academy -->
+                    <div class="experience-panel" id="panel-2">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Cloud Computing Cohort <span class="at">@</span> <a href="https://contributors.bangkit.academy/" target="_blank" rel="noopener noreferrer" class="company-link">Bangkit Academy</a></h3>
+                            <span class="panel-date">Sep 2024 - Jan 2025</span>
+                        </div>
+                        <div class="panel-location"><i class="fas fa-certificate"></i> National Digital Program by Google, GoTo, Traveloka</div>
+                        <ul class="panel-desc">
+                            <li>Completed over 900 hours of intensive learning covering cloud infrastructure, web development, and soft skills.</li>
+                            <li>Collaborated in a cross-functional team as the Cloud Engineer for the capstone project "Fridge Recipe", a REST API-based web application.</li>
+                            <li>Deployed frontend on Google App Engine, backend APIs on Cloud Run, and set up Cloud Storage and Cloud SQL databases on Google Cloud Platform.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section converted to Interactive Slider -->
+    <section class="experience-section" id="projects">
         <div class="experience-container">
             <div class="experience-header scroll-reveal">
                 <h2>My <span>Projects</span></h2>
@@ -1243,6 +1317,60 @@
             registerChatbotHover(chatbotToggle);
             registerChatbotHover(chatbotClose);
             registerChatbotHover(chatbotSend);
+
+            // --- Work Experience Tabs Controller ---
+            const tabBtns = document.querySelectorAll('.experience-tabs .tab-btn');
+            const panels = document.querySelectorAll('.experience-panel');
+            const indicator = document.querySelector('.experience-tabs .tab-indicator');
+            
+            function updateTabIndicator(activeBtn) {
+                if (!indicator || !activeBtn) return;
+                
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile) {
+                    indicator.style.width = `${activeBtn.offsetWidth}px`;
+                    indicator.style.left = `${activeBtn.offsetLeft}px`;
+                    indicator.style.height = '3px';
+                    indicator.style.top = 'auto';
+                    indicator.style.transform = 'none';
+                } else {
+                    indicator.style.height = `${activeBtn.offsetHeight}px`;
+                    indicator.style.top = `${activeBtn.offsetTop}px`;
+                    indicator.style.width = '3px';
+                    indicator.style.left = '-2px';
+                    indicator.style.transform = 'none';
+                }
+            }
+            
+            tabBtns.forEach((btn, index) => {
+                registerChatbotHover(btn);
+                
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    const activePanel = document.getElementById(`panel-${index}`);
+                    if (activePanel) {
+                        activePanel.classList.add('active');
+                    }
+                    
+                    updateTabIndicator(btn);
+                });
+            });
+            
+            // Initialize indicator position
+            const activeTab = document.querySelector('.experience-tabs .tab-btn.active');
+            if (activeTab) {
+                setTimeout(() => {
+                    updateTabIndicator(activeTab);
+                }, 200);
+            }
+            
+            window.addEventListener('resize', () => {
+                const currentActiveTab = document.querySelector('.experience-tabs .tab-btn.active');
+                updateTabIndicator(currentActiveTab);
+            });
 
             // Format markdown-like text to HTML safely
             function formatMessage(text) {

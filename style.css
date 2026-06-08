@@ -654,7 +654,7 @@ nav a.active {
 
 /* Enhanced Skills Section with more proportional and precise layout */
 .skills-section {
-  padding: 100px 0 80px;
+  padding: 60px 0 40px;
   background: transparent;
 }
 
@@ -669,7 +669,7 @@ nav a.active {
   margin-bottom: 4rem;
 }
 
-.skills-header h1 {
+.skills-header h2 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -677,7 +677,7 @@ nav a.active {
   color: var(--text-primary);
 }
 
-.skills-header h1 span {
+.skills-header h2 span {
   color: #0891b2;
 }
 
@@ -844,7 +844,7 @@ nav a.active {
 
 /* Education Section */
 .education-section {
-  padding: 100px 0 80px;
+  padding: 60px 0 40px;
   background: transparent;
 }
 
@@ -859,7 +859,7 @@ nav a.active {
   margin-bottom: 4rem;
 }
 
-.education-header h1 {
+.education-header h2 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -867,7 +867,7 @@ nav a.active {
   color: var(--text-primary);
 }
 
-.education-header h1 span {
+.education-header h2 span {
   color: #0891b2;
 }
 
@@ -960,7 +960,7 @@ nav a.active {
 
 /* Experience Section */
 .experience-section {
-  padding: 100px 0 80px;
+  padding: 60px 0 40px;
   background: transparent;
 }
 
@@ -975,7 +975,7 @@ nav a.active {
   margin-bottom: 4rem;
 }
 
-.experience-header h1 {
+.experience-header h2 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
@@ -983,7 +983,7 @@ nav a.active {
   color: var(--text-primary);
 }
 
-.experience-header h1 span {
+.experience-header h2 span {
   color: #0891b2;
 }
 
@@ -1180,7 +1180,7 @@ nav a.active {
 }
 
 .contact-section {
-  padding: 100px 0 80px;
+  padding: 60px 0 40px;
   background: var(--contact-section-bg);
   color: #ffffff;
 }
@@ -1207,7 +1207,7 @@ nav a.active {
   margin-bottom: 1rem;
 }
 
-.section-header h1 {
+.section-header h2 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 3rem;
   font-weight: 700;
@@ -1528,7 +1528,7 @@ nav a.active {
 
 /* Comprehensive certificates section styling with grid layout and hover effects */
 .certificates-section {
-  padding: 100px 0;
+  padding: 60px 0 40px;
   background: transparent;
 }
 
@@ -1543,15 +1543,15 @@ nav a.active {
   margin-bottom: 4rem;
 }
 
-.certificates-header h1 {
+.certificates-header h2 {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
-.certificates-header h1 span {
+.certificates-header h2 span {
   color: #0891b2;
 }
 
@@ -2027,7 +2027,7 @@ nav a.active {
     padding: 1.5rem;
   }
 
-  .section-header h1 {
+  .section-header h2 {
     font-size: 2.5rem;
   }
 
@@ -2042,7 +2042,7 @@ nav a.active {
     max-width: 400px;
   }
 
-  .certificates-header h1 {
+  .certificates-header h2 {
     font-size: 2.5rem;
   }
 
@@ -2058,9 +2058,10 @@ nav a.active {
   }
 
   /* General Mobile Adjustments */
-  .skills-header h1,
-  .education-header h1,
-  .experience-header h1 {
+  .skills-header h2,
+  .education-header h2,
+  .experience-header h2,
+  .work-experience-header h2 {
     font-size: 2rem;
   }
 
@@ -2117,8 +2118,10 @@ nav a.active {
   .skills-section,
   .education-section,
   .experience-section,
+  .work-experience-section,
+  .certificates-section,
   .contact-section {
-    padding: 60px 0 40px;
+    padding: 30px 0 20px;
   }
 
   .skill-category,
@@ -2648,5 +2651,272 @@ html {
   
   .chatbot-widget.show {
     transform: none;
+  }
+}
+
+/* Work Experience Section (Interactive Tabs Layout) */
+.work-experience-section {
+  padding: 60px 0 40px;
+  background: transparent;
+}
+
+.work-experience-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.work-experience-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.work-experience-header h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.work-experience-header h2 span {
+  color: #0891b2;
+}
+
+.work-experience-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Tabs Wrapper */
+.experience-tabs-wrapper {
+  display: flex;
+  gap: 3rem;
+  min-height: 380px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+/* Tabs list */
+.experience-tabs {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 220px;
+  flex-shrink: 0;
+  border-left: 2px solid var(--border-color);
+  padding-left: 0;
+}
+
+/* Tab button */
+.experience-tabs .tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  border-radius: 0 8px 8px 0;
+  outline: none;
+  position: relative;
+}
+
+.experience-tabs .tab-btn:hover {
+  color: #0891b2;
+  background: rgba(8, 145, 178, 0.05);
+}
+
+.experience-tabs .tab-btn.active {
+  color: #0891b2;
+  background: rgba(8, 145, 178, 0.08);
+}
+
+/* Vertical active indicator */
+.experience-tabs .tab-indicator {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 3px;
+  height: 48px;
+  background: linear-gradient(to bottom, #0891b2, #ec4899);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 10px rgba(8, 145, 178, 0.5);
+}
+
+/* Panels */
+.experience-panels {
+  flex: 1;
+  position: relative;
+}
+
+.experience-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.experience-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Panel header */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.panel-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.panel-title .at {
+  color: #ec4899;
+}
+
+.panel-title .company-link {
+  color: #0891b2;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.panel-title .company-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #0891b2, #ec4899);
+  transition: width 0.3s ease;
+}
+
+.panel-title .company-link:hover {
+  color: #06b6d4;
+}
+
+.panel-title .company-link:hover::after {
+  width: 100%;
+}
+
+.panel-date {
+  font-family: "DM Sans", sans-serif;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.panel-location {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.panel-location i {
+  color: #ec4899;
+}
+
+.panel-desc {
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.panel-desc li {
+  margin-bottom: 0.8rem;
+  position: relative;
+  list-style: none;
+}
+
+.panel-desc li::before {
+  content: '▹';
+  position: absolute;
+  left: -1.2rem;
+  color: #0891b2;
+}
+
+/* Mobile Responsiveness for Tab Layout */
+@media (max-width: 768px) {
+  .work-experience-section {
+    padding: 40px 0 30px;
+  }
+
+  .work-experience-header h2 {
+    font-size: 2.1rem;
+  }
+
+  .experience-tabs-wrapper {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 2rem;
+    min-height: auto;
+  }
+  
+  .experience-tabs {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    border-left: none;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0;
+    scrollbar-width: none;
+  }
+  
+  .experience-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .experience-tabs .tab-btn {
+    text-align: center;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .experience-tabs .tab-indicator {
+    left: 0;
+    bottom: -2px;
+    top: auto;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #0891b2, #ec4899);
+  }
+  
+  .panel-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .panel-date {
+    align-self: flex-start;
   }
 }
