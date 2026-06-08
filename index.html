@@ -1221,16 +1221,7 @@
 
             let isChatOpen = false;
             let hasGreeted = false;
-
-            const responses = {
-                greeting: "Halo! Saya asisten virtual Fauzi. Ada yang bisa saya bantu hari ini? Silakan pilih salah satu topik di bawah atau ketik langsung pertanyaan Anda.",
-                halo: "Halo! Saya asisten virtual Fauzi. Ada yang bisa saya bantu hari ini? Silakan tanyakan tentang skill, proyek, pendidikan, atau kontak Fauzi.",
-                skill: "Fauzi menguasai berbagai teknologi berikut:\n\n• **Front-end:** HTML, CSS, JavaScript, React\n• **Back-end:** Laravel, Node.js\n• **Cloud Platforms:** Google Cloud Platform (GCP), AWS\n\nFauzi sangat tertarik dengan pengembangan web modern dan arsitektur cloud!",
-                proyek: "Berikut adalah beberapa proyek utama yang dikembangkan oleh Fauzi:\n\n1. **Jejak Kebaikan** - Platform donasi digital berbasis web.\n2. **GenZ** - Aplikasi web inovatif yang dirancang untuk generasi muda.\n\nDetail proyek selengkapnya bisa dilihat pada bagian **Projects** di halaman portofolio ini.",
-                kontak: "Anda dapat menghubungi Fauzi melalui saluran berikut:\n\n• 📧 **Email:** muhammadfauzina@gmail.com\n• 💼 **LinkedIn:** [LinkedIn Fauzi](https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/)\n• 🐙 **GitHub:** [GitHub Fauzi](https://github.com/FauziNauvalAbrari)\n\nSilakan juga kirim pesan Anda langsung melalui formulir kontak di bawah halaman ini!",
-                pendidikan: "Fauzi saat ini sedang menempuh pendidikan di:\n\n• **STMIK Profesional** - Jurusan Sistem Informasi\n• **Bangkit Academy** - Jalur Cloud Computing Cohort\n\nFauzi berkomitmen terus belajar teknologi terbaru untuk menghasilkan solusi berkualitas.",
-                fallback: "Maaf, saya belum memahami pertanyaan tersebut. Coba tanyakan tentang **Skill**, **Proyek**, **Kontak**, atau **Pendidikan** Fauzi, atau klik salah satu tombol saran di bawah ini!"
-            };
+            let chatHistory = [];
 
             const suggestions = [
                 { text: "🛠️ Skill", value: "skill" },
@@ -1259,6 +1250,9 @@
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;");
+                
+                // Standard markdown bullets: - item or * item -> • item
+                html = html.replace(/^\s*[-*]\s+/gm, "• ");
                 
                 // Bold: **text** -> <strong>text</strong>
                 html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
@@ -1323,18 +1317,15 @@
                 });
             }
 
-            // Bot response processing
-            function triggerBotResponse(responseText) {
-                showTypingIndicator();
-                chatbotSuggestions.innerHTML = ''; // Hide chips while typing
-                
-                const responseDelay = Math.max(600, Math.min(1500, responseText.length * 15));
-                
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    appendChatMessage('bot', responseText);
-                    renderSuggestionChips();
-                }, responseDelay);
+            // Map suggestions to clear prompt text for Gemini
+            function getSuggestionQuery(value) {
+                const queries = {
+                    skill: "Ceritakan tentang keahlian dan teknologi yang Anda kuasai.",
+                    proyek: "Apa saja proyek utama yang telah Anda kembangkan?",
+                    kontak: "Bagaimana cara menghubungi Anda atau melihat sosial media Anda?",
+                    pendidikan: "Ceritakan tentang latar belakang pendidikan dan sertifikasi Anda."
+                };
+                return queries[value] || value;
             }
 
             // Greeting triggering
@@ -1343,31 +1334,61 @@
                 showTypingIndicator();
                 setTimeout(() => {
                     hideTypingIndicator();
-                    appendChatMessage('bot', responses.greeting);
+                    const welcomeText = "Halo! Saya asisten virtual Fauzi. Ada yang bisa saya bantu hari ini? Silakan pilih salah satu topik di bawah atau ketik langsung pertanyaan Anda.";
+                    appendChatMessage('bot', welcomeText);
+                    chatHistory.push({ sender: 'bot', text: welcomeText });
                     renderSuggestionChips();
                 }, 1000);
             }
 
-            // Simple client-side keyword detector
-            function matchKeyword(text) {
-                const cleanText = text.toLowerCase().trim();
-                if (/\b(halo|hi|hello|p|hai|assalamualaikum)\b/.test(cleanText)) return 'halo';
-                if (/\b(skill|teknologi|bahasa|framework|laravel|react|html|css|js|node|gcp|aws|cloud|kemampuan|keahlian)\b/.test(cleanText)) return 'skill';
-                if (/\b(proyek|project|karya|portfolio|jejakkebaikan|genz|aplikasi)\b/.test(cleanText)) return 'proyek';
-                if (/\b(kontak|email|hubungi|sosmed|linkedin|github|twitter|instagram|no|nomor|telp|whatsapp|wa|sosial)\b/.test(cleanText)) return 'kontak';
-                if (/\b(pendidikan|sekolah|stmik|kuliah|bangkit|belajar|universitas|akademik|lulus)\b/.test(cleanText)) return 'pendidikan';
-                return null;
-            }
-
-            // Main input handling
-            function handleChatInput(displayMsg, forcedValue = null) {
+            // Main input handling calling the serverless API
+            async function handleChatInput(displayMsg, forcedValue = null) {
                 appendChatMessage('user', displayMsg);
                 chatbotInput.value = '';
                 
-                const targetKey = forcedValue || matchKeyword(displayMsg);
-                const reply = responses[targetKey] || responses.fallback;
+                chatHistory.push({ sender: 'user', text: displayMsg });
                 
-                triggerBotResponse(reply);
+                showTypingIndicator();
+                chatbotSuggestions.innerHTML = ''; // Hide chips while typing
+                
+                const promptText = forcedValue ? getSuggestionQuery(forcedValue) : displayMsg;
+
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: promptText,
+                            history: chatHistory.slice(0, -1) // exclude the latest user message
+                        })
+                    });
+
+                    hideTypingIndicator();
+
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+
+                    const data = await response.json();
+                    const reply = data.reply || "Maaf, saya tidak bisa memproses jawaban saat ini.";
+                    
+                    appendChatMessage('bot', reply);
+                    chatHistory.push({ sender: 'bot', text: reply });
+                } catch (error) {
+                    hideTypingIndicator();
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        const localMock = "Halo! Ini adalah simulasi respons lokal (karena Anda menjalankan server lokal tanpa Vercel CLI). Setelah Anda men-deploy proyek ini ke Vercel, saya akan terhubung secara dinamis ke Gemini API menggunakan API Key yang aman.";
+                        appendChatMessage('bot', localMock);
+                        chatHistory.push({ sender: 'bot', text: localMock });
+                    } else {
+                        const errReply = "Maaf, sepertinya saya sedang mengalami gangguan koneksi. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        appendChatMessage('bot', errReply);
+                    }
+                } finally {
+                    renderSuggestionChips();
+                }
             }
 
             // Visibility Toggles
