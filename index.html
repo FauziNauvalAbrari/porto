@@ -18,7 +18,7 @@
         <meta name="twitter:description" content="Portfolio web developer berisi project, sertifikat, skill, dan pengalaman profesional.">
         <meta name="twitter:image" content="https://fauzidev.vercel.app/img/person.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- Updated to modern Google Fonts matching design brief -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -61,11 +61,19 @@
     <!-- Fullscreen canvas background -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Added simple loading screen with fade-out animation -->
+    <!-- Beautiful Premium Preloader Screen -->
     <div class="loading-screen">
         <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text"></div>
+            <div class="preloader-logo">
+                <img src="img/loader.png" class="rocket-icon" alt="Logo">
+                <div class="preloader-ring outer-ring"></div>
+                <div class="preloader-ring inner-ring"></div>
+            </div>
+            <h1 class="preloader-title">Fauzi<span class="accent">Dev</span></h1>
+            <p class="preloader-subtitle">Preparing interactive experience...</p>
+            <div class="preloader-progress-container">
+                <div class="preloader-progress-bar"></div>
+            </div>
         </div>
     </div>
 
@@ -76,7 +84,7 @@
     <header class="glass-header scroll-reveal">
         <div class="header-content">
             <a href="#" class="logo">
-                <span class="logo-icon">🚀</span>
+                <img src="img/loader.png" class="logo-icon" alt="Logo">
                 <span class="logo-text">Fauzi<span class="accent">Dev</span></span>
             </a>
 
@@ -178,7 +186,7 @@
     <!-- Enhanced Skills Section with more proportional layout -->
     <section class="skills-section" id="skills">
         <div class="skills-container">
-            <div class="skills-header scroll-reveal">
+            <div class="section-header scroll-reveal">
                 <h2>My <span>Skills</span></h2>
                 <p>Technologies and tools I work with</p>
             </div>
@@ -285,7 +293,7 @@
 <!-- Added new certificates section with grid slider layout -->
 <section class="certificates-section" id="certificates">
     <div class="certificates-container">
-        <div class="certificates-header scroll-reveal">
+        <div class="section-header scroll-reveal">
             <h2>My <span>Certificates</span></h2>
             <p>Professional certifications and achievements</p>
         </div>
@@ -708,7 +716,7 @@
     <!-- Enhanced Education Section with Timeline Design -->
     <section class="education-section" id="edu">
         <div class="education-container">
-            <div class="education-header scroll-reveal">
+            <div class="section-header scroll-reveal">
                 <h2>My <span>Education</span></h2>
                 <p>My academic journey and achievements</p>
             </div>
@@ -761,7 +769,7 @@
     <!-- Work Experience Section -->
     <section class="work-experience-section" id="experience">
         <div class="work-experience-container">
-            <div class="work-experience-header scroll-reveal">
+            <div class="section-header scroll-reveal">
                 <h2>My <span>Experience</span></h2>
                 <p>My career path and professional contributions</p>
             </div>
@@ -834,7 +842,7 @@
     <!-- Projects Section converted to Interactive Slider -->
     <section class="experience-section" id="projects">
         <div class="experience-container">
-            <div class="experience-header scroll-reveal">
+            <div class="section-header scroll-reveal">
                 <h2>My <span>Projects</span></h2>
                 <p>Here are some of my latest projects that showcase my skills.</p>
             </div>
@@ -1245,8 +1253,8 @@
                 loadingScreen.classList.add('fade-out');
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-                }, 500);
-            }, 500);
+                }, 600); // Wait for CSS opacity transition (0.6s) to finish
+            }, 1200); // Reverted back to 1200ms to match progress bar fill
 
             // Floating Back-to-Top Button with Circular Progress Logic
             const backToTopBtn = document.getElementById('backToTop');

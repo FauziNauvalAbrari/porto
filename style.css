@@ -95,6 +95,7 @@ body {
   position: relative;
   overflow-x: hidden;
   cursor: none;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 /* Apply custom cursor only to interactive elements */
@@ -105,22 +106,61 @@ button,
   cursor: none;
 }
 
-/* Enhanced loading screen animation styles */
+/* Enhanced Premium Loading Screen */
 .loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #0891b2 100%);
+  background: #090d16; /* Dark premium background matching dark theme */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10000;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  backdrop-filter: blur(10px);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s ease;
+  overflow: hidden;
+}
+
+/* Background Glowing Ambient Orbs for Preloader */
+.loading-screen::before,
+.loading-screen::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+  animation: preloaderFloat 8s ease-in-out infinite;
+}
+
+.loading-screen::before {
+  width: 300px;
+  height: 300px;
+  background: #0891b2;
+  top: 15%;
+  left: 20%;
+}
+
+.loading-screen::after {
+  width: 250px;
+  height: 250px;
+  background: #ec4899;
+  bottom: 15%;
+  right: 20%;
+  animation-delay: -4s;
+}
+
+@keyframes preloaderFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
 }
 
 .loading-screen.fade-out {
@@ -129,40 +169,123 @@ button,
 }
 
 .loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  color: #ffffff;
-  /* Removed animation to prevent fade-in effect */
 }
 
-.loading-text {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  /* Removed fade-in animation, keeping only pulse effect */
-  animation: smoothPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+/* Preloader Logo with concentric neon rings */
+.preloader-logo {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
 }
 
-.loading-subtitle {
-  font-size: 1rem;
-  opacity: 0.9;
-  /* Removed fade-in animation */
+.rocket-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  animation: rocketPulse 1.5s ease-in-out infinite;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.6));
 }
 
-/* Removed smoothSlideDown and fadeInUp keyframes as they're no longer needed */
-
-@keyframes smoothPulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
+@keyframes rocketPulse {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 8px rgba(8, 145, 178, 0.4));
   }
-
   50% {
-    opacity: 0.8;
-    transform: scale(1.02);
+    transform: scale(1.15) translateY(-5px);
+    filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.8));
   }
+}
+
+.preloader-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid transparent;
+}
+
+.outer-ring {
+  width: 90px;
+  height: 90px;
+  border-top-color: #0891b2;
+  border-bottom-color: #0891b2;
+  animation: spinClockwise 1.5s linear infinite;
+  box-shadow: 0 0 10px rgba(8, 145, 178, 0.2);
+}
+
+.inner-ring {
+  width: 70px;
+  height: 70px;
+  border-left-color: #ec4899;
+  border-right-color: #ec4899;
+  animation: spinCounterClockwise 1s linear infinite;
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.2);
+}
+
+@keyframes spinClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* Typography & Subtitle styling */
+.preloader-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.preloader-title .accent {
+  color: #0891b2;
+}
+
+.preloader-subtitle {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+}
+
+/* Sleek Progress Bar Animation */
+.preloader-progress-container {
+  width: 140px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #0891b2, #ec4899);
+  border-radius: 10px;
+  animation: fillProgress 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  box-shadow: 0 0 8px rgba(8, 145, 178, 0.6);
+}
+
+@keyframes fillProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
 }
 
 /* Antigravity Particle Canvas Background */
@@ -281,7 +404,9 @@ button,
 }
 
 .logo-icon {
-  font-size: 1.8rem;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .logo-text {
@@ -680,27 +805,7 @@ nav a.active {
   padding: 0 2rem;
 }
 
-.skills-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
 
-.skills-header h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.skills-header h2 span {
-  color: #0891b2;
-}
-
-.skills-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
 
 /* Refined Compact Marquee Showcase Styles */
 .skills-marquee {
@@ -890,27 +995,7 @@ nav a.active {
   padding: 0 2rem;
 }
 
-.education-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
 
-.education-header h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.education-header h2 span {
-  color: #0891b2;
-}
-
-.education-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
 
 .education-timeline {
   position: relative;
@@ -1028,27 +1113,7 @@ nav a.active {
   padding: 0 2rem;
 }
 
-.experience-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
 
-.experience-header h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.experience-header h2 span {
-  color: #0891b2;
-}
-
-.experience-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
 
 .experience-slider {
   position: relative;
@@ -1276,17 +1341,29 @@ nav a.active {
 
 .section-header h2 {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: var(--text-primary);
+}
+
+.section-header h2 span {
+  color: #0891b2;
 }
 
 .section-header p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-muted);
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.contact-section .section-header h2 {
+  color: #ffffff;
+}
+
+.contact-section .section-header p {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .contact-content {
@@ -1607,29 +1684,7 @@ nav a.active {
   padding: 0 2rem;
 }
 
-.certificates-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
 
-.certificates-header h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.certificates-header h2 span {
-  color: #0891b2;
-}
-
-.certificates-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
 .certificates-grid {
   display: grid;
@@ -2103,7 +2158,7 @@ nav a.active {
   }
 
   .section-header h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   /* Certificates Section Mobile */
@@ -2117,10 +2172,6 @@ nav a.active {
     max-width: 400px;
   }
 
-  .certificates-header h2 {
-    font-size: 2.5rem;
-  }
-
   .certificate-info {
     padding: 1.25rem;
   }
@@ -2130,14 +2181,6 @@ nav a.active {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
-  }
-
-  /* General Mobile Adjustments */
-  .skills-header h2,
-  .education-header h2,
-  .experience-header h2,
-  .work-experience-header h2 {
-    font-size: 2rem;
   }
 
   .btn {
@@ -2757,27 +2800,7 @@ html {
   padding: 0 2rem;
 }
 
-.work-experience-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
 
-.work-experience-header h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.work-experience-header h2 span {
-  color: #0891b2;
-}
-
-.work-experience-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
 
 /* Tabs Wrapper */
 .experience-tabs-wrapper {
@@ -2958,10 +2981,6 @@ html {
 @media (max-width: 768px) {
   .work-experience-section {
     padding: 40px 0 30px;
-  }
-
-  .work-experience-header h2 {
-    font-size: 2.1rem;
   }
 
   .experience-tabs-wrapper {
