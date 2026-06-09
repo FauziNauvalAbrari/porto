@@ -2259,6 +2259,7 @@ html {
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
+  height: 0px; /* Hide horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-track {
