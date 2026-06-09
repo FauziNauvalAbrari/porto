@@ -1501,7 +1501,10 @@
                     hideTypingIndicator();
 
                     if (!response.ok) {
-                        throw new Error('API request failed');
+                        const errData = await response.json().catch(() => ({}));
+                        const error = new Error(errData.error || 'API request failed');
+                        error.status = response.status;
+                        throw error;
                     }
 
                     const data = await response.json();
@@ -1511,13 +1514,27 @@
                     chatHistory.push({ sender: 'bot', text: reply });
                 } catch (error) {
                     hideTypingIndicator();
-                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    
+                    const isLocal = window.location.hostname === 'localhost' || 
+                                    window.location.hostname === '127.0.0.1' || 
+                                    window.location.hostname.endsWith('.test') || 
+                                    window.location.hostname.endsWith('.local');
+                                    
+                    if (isLocal) {
                         const localMock = "Halo! Ini adalah simulasi respons lokal (karena Anda menjalankan server lokal tanpa Vercel CLI). Setelah Anda men-deploy proyek ini ke Vercel, saya akan terhubung secara dinamis ke Gemini API menggunakan API Key yang aman.";
                         appendChatMessage('bot', localMock);
                         chatHistory.push({ sender: 'bot', text: localMock });
                     } else {
-                        const errReply = "Maaf, sepertinya saya sedang mengalami gangguan koneksi. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        let errReply = "Maaf, sepertinya saya sedang mengalami gangguan koneksi. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        
+                        if (error.status === 429) {
+                            errReply = "Waduh, asisten virtual sedang menerima terlalu banyak pertanyaan dari pengunjung saat ini (Limitasi Kuota API). Silakan tunggu beberapa saat lagi, atau hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        } else if (error.status === 500 || error.status === 503) {
+                            errReply = "Maaf, terjadi kesalahan konfigurasi pada server asisten virtual. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        }
+                        
                         appendChatMessage('bot', errReply);
+                        chatHistory.push({ sender: 'bot', text: errReply });
                     }
                 } finally {
                     renderSuggestionChips();
