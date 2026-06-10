@@ -1629,7 +1629,7 @@ nav a.active {
 
 .toast {
   position: fixed;
-  top: 20px;
+  top: 80px;
   right: 20px;
   background: var(--toast-bg);
   color: var(--toast-color);
@@ -2295,15 +2295,15 @@ nav a.active {
   }
 
   .toast {
-    right: 10px;
-    left: 10px;
-    transform: translateY(-100px);
+    right: 20px;
+    left: auto;
+    transform: translateX(400px);
     opacity: 0;
     visibility: hidden;
   }
 
   .toast.show {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
     visibility: visible;
   }
