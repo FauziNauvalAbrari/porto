@@ -1251,6 +1251,10 @@
                 applyTheme(newTheme);
             });
 
+            const isMobile = window.innerWidth <= 768;
+            const preloaderTimeout = isMobile ? 600 : 1200;
+            const fadeTransitionDuration = isMobile ? 400 : 600;
+
             const loadingScreen = document.querySelector('.loading-screen');
             setTimeout(() => {
                 loadingScreen.classList.add('fade-out');
@@ -1267,10 +1271,21 @@
                             if (typeof cacheTimelinePositions === 'function') cacheTimelinePositions();
                             if (typeof updateActiveNavLink === 'function') updateActiveNavLink();
                             if (typeof updateEduTimelineProgress === 'function') updateEduTimelineProgress();
+                            
+                            // Initialize indicator position instantly without transitions to avoid non-composited animations on load
+                            const activeTab = document.querySelector('.experience-tabs .tab-btn.active');
+                            if (activeTab && indicator) {
+                                indicator.style.transition = 'none';
+                                updateTabIndicator(activeTab);
+                                // Enable transitions smoothly after placement
+                                setTimeout(() => {
+                                    indicator.style.transition = '';
+                                }, 50);
+                            }
                         });
                     });
-                }, 600); // Wait for CSS opacity transition (0.6s) to finish
-            }, 1200); // Reverted back to 1200ms to match progress bar fill
+                }, fadeTransitionDuration); // Wait for CSS opacity transition to finish
+            }, preloaderTimeout);
 
             // Floating Back-to-Top Button with Circular Progress Logic
             const backToTopBtn = document.getElementById('backToTop');
@@ -1404,16 +1419,7 @@
                 });
             });
             
-            // Initialize indicator position instantly without transitions to avoid non-composited animations on load
-            const activeTab = document.querySelector('.experience-tabs .tab-btn.active');
-            if (activeTab && indicator) {
-                const prevTransition = indicator.style.transition;
-                indicator.style.transition = 'none';
-                updateTabIndicator(activeTab);
-                // Force layout reflow to apply styles instantly
-                indicator.offsetHeight; 
-                indicator.style.transition = prevTransition;
-            }
+            // Tab indicator initial placement is now fully deferred to the post-preloader callback to prevent forced reflow on load
 
             // Format markdown-like text to HTML safely
             function formatMessage(text) {
