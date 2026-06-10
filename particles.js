@@ -16,7 +16,7 @@ class AntigravityParticles {
         // Physics and wave configuration
         this.config = {
             desktopCount: 2500,     // Number of particles on desktop
-            mobileCount: 800,      // Scaled down for mobile performance
+            mobileCount: 180,      // Scaled down for mobile performance
             ringSpacing: 16,        // Space between concentric rings in pixels
             springStiffness: 0.035, // Hooke's Law constant (k)
             damping: 0.90,          // Friction / drag coefficient
