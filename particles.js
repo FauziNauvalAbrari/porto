@@ -418,8 +418,5 @@ class AntigravityParticles {
     }
 }
 
-// Automatically instantiate the background when loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Canvas is initialized automatically when DOM loads
-    window.antigravityBackground = new AntigravityParticles('particle-canvas');
-});
+// The AntigravityParticles background class is exported globally
+// and instantiated dynamically from index.html after the preloader finishes fading out.
