@@ -101,9 +101,11 @@
                 <a href="#contact">Contact</a>
             </nav>
 
-            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
-                <i class="fas fa-moon"></i>
-            </button>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
             
             <div class="mobile-menu" onclick="toggleMobileMenu()">
                 <span></span>
@@ -1250,6 +1252,108 @@
                 applyTheme(newTheme);
             });
 
+            // --- Ambient Audio Player ---
+            let ambientAudio = null;
+            let isAudioPlaying = false;
+            let fadeInterval = null;
+            
+            const soundToggleBtn = document.getElementById('soundToggle');
+            const soundToggleIcon = soundToggleBtn.querySelector('i');
+            
+            function initAudio() {
+                if (!ambientAudio) {
+                    ambientAudio = new Audio('file/music.mp3');
+                    ambientAudio.loop = true;
+                    ambientAudio.volume = 0; // Start at 0 for fade-in
+                }
+            }
+            
+            function fadeAudio(targetVolume, duration, callback) {
+                if (!ambientAudio) return;
+                clearInterval(fadeInterval);
+                
+                const steps = 20;
+                const intervalTime = (duration * 1000) / steps;
+                const startVolume = ambientAudio.volume;
+                const volumeChange = targetVolume - startVolume;
+                let currentStep = 0;
+                
+                fadeInterval = setInterval(() => {
+                    currentStep++;
+                    ambientAudio.volume = Math.max(0, Math.min(1, startVolume + (volumeChange * (currentStep / steps))));
+                    
+                    if (currentStep >= steps) {
+                        clearInterval(fadeInterval);
+                        ambientAudio.volume = targetVolume;
+                        if (callback) callback();
+                    }
+                }, intervalTime);
+            }
+            
+            function toggleSound() {
+                initAudio();
+                
+                if (!isAudioPlaying) {
+                    isAudioPlaying = true;
+                    soundToggleIcon.className = 'fas fa-volume-up';
+                    soundToggleBtn.classList.add('playing');
+                    
+                    ambientAudio.play().then(() => {
+                        fadeAudio(0.3, 1.2); // Fade in to 30% volume over 1.2s
+                    }).catch(err => {
+                        console.error("Audio playback failed:", err);
+                        isAudioPlaying = false;
+                        soundToggleIcon.className = 'fas fa-volume-mute';
+                        soundToggleBtn.classList.remove('playing');
+                        showToast('Gagal memutar audio', true);
+                    });
+                } else {
+                    isAudioPlaying = false;
+                    soundToggleIcon.className = 'fas fa-volume-mute';
+                    soundToggleBtn.classList.remove('playing');
+                    
+                    fadeAudio(0, 0.8, () => {
+                        if (!isAudioPlaying) {
+                            ambientAudio.pause();
+                        }
+                    });
+                }
+            }
+            
+            function startAudioAutomatically() {
+                initAudio();
+                
+                const tryPlay = () => {
+                    if (isAudioPlaying) return;
+                    
+                    ambientAudio.play().then(() => {
+                        isAudioPlaying = true;
+                        soundToggleIcon.className = 'fas fa-volume-up';
+                        soundToggleBtn.classList.add('playing');
+                        fadeAudio(0.3, 1.2);
+                        removeListeners();
+                    }).catch(err => {
+                        console.warn("Autoplay blocked, waiting for user gesture:", err);
+                    });
+                };
+                
+                const removeListeners = () => {
+                    window.removeEventListener('click', tryPlay);
+                    window.removeEventListener('touchstart', tryPlay);
+                    window.removeEventListener('keydown', tryPlay);
+                };
+                
+                tryPlay();
+                
+                if (!isAudioPlaying) {
+                    window.addEventListener('click', tryPlay);
+                    window.addEventListener('touchstart', tryPlay);
+                    window.addEventListener('keydown', tryPlay);
+                }
+            }
+            
+            soundToggleBtn.addEventListener('click', toggleSound);
+
             const isMobile = window.innerWidth <= 768;
             const preloaderTimeout = isMobile ? 600 : 1200;
             const fadeTransitionDuration = isMobile ? 400 : 600;
@@ -1270,6 +1374,9 @@
                             if (typeof cacheTimelinePositions === 'function') cacheTimelinePositions();
                             if (typeof updateActiveNavLink === 'function') updateActiveNavLink();
                             if (typeof updateEduTimelineProgress === 'function') updateEduTimelineProgress();
+                            
+                            // Start background music automatically
+                            startAudioAutomatically();
                             
                             // Initialize indicator position instantly without transitions to avoid non-composited animations on load
                             const activeTab = document.querySelector('.experience-tabs .tab-btn.active');
@@ -1376,6 +1483,7 @@
             registerChatbotHover(chatbotToggle);
             registerChatbotHover(chatbotClose);
             registerChatbotHover(chatbotSend);
+            registerChatbotHover(soundToggleBtn);
 
             // --- Work Experience Tabs Controller ---
             const tabBtns = document.querySelectorAll('.experience-tabs .tab-btn');
@@ -2075,6 +2183,11 @@
             </button>
         </div>
     </div>
+
+    <!-- Floating Sound Toggle -->
+    <button id="soundToggle" class="sound-toggle-btn floating-sound" aria-label="Toggle ambient sound">
+        <i class="fas fa-volume-mute"></i>
+    </button>
 
     <!-- Floating Back to Top Button with Circular Progress -->
     <button id="backToTop" class="back-to-top-btn" aria-label="Back to top">

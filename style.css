@@ -473,8 +473,15 @@ nav a.active {
   border-radius: 2px;
 }
 
-/* Theme Toggle Button Styles */
-.theme-toggle-btn {
+/* Header Actions and Toggle Buttons Styles */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle-btn,
+.sound-toggle-btn {
   background: var(--nav-a-hover-bg);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
@@ -490,11 +497,27 @@ nav a.active {
   transition: all 0.3s ease;
 }
 
-.theme-toggle-btn:hover {
+.theme-toggle-btn:hover,
+.sound-toggle-btn:hover {
   color: #0891b2;
   border-color: #0891b2;
   transform: scale(1.1);
   background: var(--nav-a-hover-bg);
+}
+
+.sound-toggle-btn.playing i {
+  animation: soundPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes soundPulse {
+  0%, 100% {
+    transform: scale(1);
+    color: #0891b2;
+  }
+  50% {
+    transform: scale(1.15);
+    color: #ec4899;
+  }
 }
 
 /* Enhanced home section with modern design */
@@ -1637,7 +1660,7 @@ nav a.active {
   border-radius: 12px;
   font-weight: 600;
   transform: translateX(400px);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0.3s ease;
   z-index: 1001;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   opacity: 0;
@@ -2007,6 +2030,11 @@ nav a.active {
   /* Header Mobile */
   .header-content {
     padding: 1rem;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    margin-right: 1.5rem;
   }
 
   nav {
@@ -2472,7 +2500,7 @@ html {
 /* Floating Chatbot Launcher */
 .chatbot-toggle-btn {
   position: fixed;
-  bottom: 90px;
+  bottom: 150px;
   right: 30px;
   width: 48px;
   height: 48px;
@@ -2487,6 +2515,28 @@ html {
   z-index: 999;
   box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Floating Sound Toggle (between chatbot and back-to-top) */
+.sound-toggle-btn.floating-sound {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-size: 1.1rem;
+  padding: 0;
 }
 
 .chatbot-toggle-btn:hover {
@@ -2781,10 +2831,17 @@ html {
     height: 44px;
   }
 
+  .sound-toggle-btn.floating-sound {
+    bottom: 20px;
+    right: 80px;
+    width: 44px;
+    height: 44px;
+  }
+
   /* Shift Back-to-Top to avoid overlaps on mobile */
   .back-to-top-btn {
     bottom: 20px;
-    right: 80px;
+    right: 140px;
     width: 44px;
     height: 44px;
   }
