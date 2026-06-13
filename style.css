@@ -540,6 +540,16 @@ nav a.active {
   z-index: -1;
 }
 
+.shape-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 .shape {
   position: absolute;
   border-radius: 50%;
@@ -616,6 +626,7 @@ nav a.active {
 
 .img-wrapper {
   position: relative;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .img-wrapper img {
@@ -647,6 +658,14 @@ nav a.active {
 
 .home-content {
   flex: 1;
+}
+
+.home-content-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .greeting {
