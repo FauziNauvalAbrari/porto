@@ -19,9 +19,8 @@
         <meta name="twitter:image" content="https://fauzidev.vercel.app/img/person.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=7">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- Updated to modern Google Fonts matching design brief -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -53,11 +52,33 @@
     <title>Fauzi Nauval - Portfolio</title>
 </head>
 <body>
-    <!-- Render-blocking theme script to prevent flash of light theme -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const isFirstVisit = !sessionStorage.getItem('session_visited');
+            if (isFirstVisit) {
+                if ('history' in window && 'scrollRestoration' in window.history) {
+                    window.history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+                sessionStorage.setItem('session_visited', 'true');
+                
+                // Restore to auto scroll restoration after initial load to allow refresh scroll retention
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        if ('history' in window && 'scrollRestoration' in window.history) {
+                            window.history.scrollRestoration = 'auto';
+                        }
+                    }, 100);
+                });
+            } else {
+                // This is a reload, allow browser scroll restoration
+                if ('history' in window && 'scrollRestoration' in window.history) {
+                    window.history.scrollRestoration = 'auto';
+                }
+            }
         })();
     </script>
 
@@ -92,16 +113,20 @@
             </a>
 
             <nav>
-                <a href="#" class="active">Home</a>
-                <a href="#skills">Skills</a>
-                <a href="#certificates">Certificates</a>
-                <a href="#edu">Education</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+                <a href="#" class="active" data-i18n="nav.home">Home</a>
+                <a href="#skills" data-i18n="nav.skills">Skills</a>
+                <a href="#certificates" data-i18n="nav.certificates">Certificates</a>
+                <a href="#edu" data-i18n="nav.education">Education</a>
+                <a href="#experience" data-i18n="nav.experience">Experience</a>
+                <a href="#projects" data-i18n="nav.projects">Projects</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
             </nav>
 
             <div class="header-actions">
+                <button id="langToggle" class="lang-toggle-btn" aria-label="Toggle language">
+                    <i class="fas fa-globe"></i>
+                    <span>EN</span>
+                </button>
                 <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -140,25 +165,25 @@
             </div>
             <div class="home-content scroll-reveal-right">
                 <div class="home-content-inner" data-speed="0.01" data-scroll-speed="0.8">
-                    <div class="greeting">👋 Hello, I'm</div>
+                    <div class="greeting" data-i18n="hero.greeting">👋 Hello, I'm</div>
                     <h1>Muhammad <span class="gradient-text">Fauzi</span></h1>
-                    <h3 class="typing-text">I'm a <span></span></h3>
-                    <p class="description">A learner passionate about technology, especially web development. Experienced in projects from 
+                    <h3 class="typing-text"><span data-i18n="hero.typing_prefix">I'm a </span><span class="typed-text"></span></h3>
+                    <p class="description" data-i18n="hero.desc">A learner passionate about technology, especially web development. Experienced in projects from 
                         organizational websites to decision-making applications. I believe every line of code is part of the journey to real 
                         solutions.</p>
                     
                     <div class="stats-grid">
                         <div class="stat-item">
                             <div class="stat-number">5+</div>
-                            <div class="stat-label">Projects</div>
+                            <div class="stat-label" data-i18n="hero.stats_projects">Projects</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">3+</div>
-                            <div class="stat-label">Years Learning</div>
+                            <div class="stat-label" data-i18n="hero.stats_years">Years Learning</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">10+</div>
-                            <div class="stat-label">Technologies</div>
+                            <div class="stat-label" data-i18n="hero.stats_tech">Technologies</div>
                         </div>
                     </div>
                     
@@ -179,15 +204,15 @@
                     
                     <div class="cta-buttons">
                         <a href="#contact" class="btn btn-primary">
-                            <span>Hire Me</span>
+                            <span data-i18n="hero.btn_hire">Hire Me</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="#projects" class="btn btn-secondary">
-                            <span>View Work</span>
+                            <span data-i18n="hero.btn_work">View Work</span>
                             <i class="fas fa-eye"></i>
                         </a>
                         <a href="file/Resume-MuhammadFauziNauval-FS.pdf" class="btn btn-accent" target="_blank" download>
-                            <span>Download CV</span>
+                            <span data-i18n="hero.btn_cv">Download CV</span>
                             <i class="fas fa-download"></i>
                         </a>
                     </div>
@@ -200,13 +225,13 @@
     <section class="skills-section" id="skills">
         <div class="skills-container">
             <div class="section-header scroll-reveal">
-                <h2>My <span>Skills</span></h2>
-                <p>Technologies and tools I work with</p>
+                <h2 data-i18n="skills.title">My <span>Skills</span></h2>
+                <p data-i18n="skills.subtitle">Technologies and tools I work with</p>
             </div>
                     <div class="skills-marquee scroll-reveal">
                 <!-- Row 1: Frontend & UI (Right to Left) -->
                 <div class="marquee-row">
-                    <h3>Frontend & UI</h3>
+                    <h3 data-i18n="skills.cat_frontend">Frontend & UI</h3>
                     <div class="marquee-container">
                         <div class="marquee-track scroll-left">
                             <!-- Half 1 -->
@@ -238,7 +263,7 @@
 
                 <!-- Row 2: Backend (Left to Right) -->
                 <div class="marquee-row">
-                    <h3>Backend</h3>
+                    <h3 data-i18n="skills.cat_backend">Backend</h3>
                     <div class="marquee-container">
                         <div class="marquee-track scroll-right">
                             <!-- Half 1 -->
@@ -266,7 +291,7 @@
 
                 <!-- Row 3: Database & Cloud (Right to Left) -->
                 <div class="marquee-row">
-                    <h3>Database & Cloud</h3>
+                    <h3 data-i18n="skills.cat_dbcloud">Database & Cloud</h3>
                     <div class="marquee-container">
                         <div class="marquee-track scroll-left">
                             <!-- Half 1 -->
@@ -298,7 +323,7 @@
             </div>
             
             <div class="skills-cta scroll-reveal">
-                <a href="#contact" class="btn">Let's Work Together</a>
+                <a href="#contact" class="btn" data-i18n="skills.cta">Let's Work Together</a>
             </div>
         </div>
     </section>
@@ -307,8 +332,8 @@
 <section class="certificates-section" id="certificates">
     <div class="certificates-container">
         <div class="section-header scroll-reveal">
-            <h2>My <span>Certificates</span></h2>
-            <p>Professional certifications and achievements</p>
+            <h2 data-i18n="certs.title">My <span>Certificates</span></h2>
+            <p data-i18n="certs.subtitle">Professional certifications and achievements</p>
         </div>
         
         <div class="certificates-grid scroll-reveal-scale">
@@ -719,7 +744,7 @@
         <!-- Show More Button -->
         <div class="certificates-show-more scroll-reveal">
             <button id="showMoreCertificates" class="btn btn-secondary" aria-expanded="false">
-                <span>Show All Certificates</span>
+                <span data-i18n="certs.btn_show_more">Show All Certificates</span>
                 <i class="fas fa-chevron-down"></i>
             </button>
         </div>
@@ -730,8 +755,8 @@
     <section class="education-section" id="edu">
         <div class="education-container">
             <div class="section-header scroll-reveal">
-                <h2>My <span>Education</span></h2>
-                <p>My academic journey and achievements</p>
+                <h2 data-i18n="edu.title">My <span>Education</span></h2>
+                <p data-i18n="edu.subtitle">My academic journey and achievements</p>
             </div>
             
             <div class="education-timeline">
@@ -744,8 +769,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-year">2018 - 2021</div>
-                        <h3>MAN 1 Makassar - Mathematics and Science</h3>
-                        <p>Completed high school education with focus on science and mathematics. Developed strong analytical thinking and problem-solving skills that laid the foundation for my technical career.</p>
+                        <h3 data-i18n="edu.man1_title">MAN 1 Makassar - Mathematics and Science</h3>
+                        <p data-i18n="edu.man1_desc">Completed high school education with focus on science and mathematics. Developed strong analytical thinking and problem-solving skills that laid the foundation for my technical career.</p>
                         <div class="timeline-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
@@ -756,8 +781,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-year">2021 - 2022</div>
-                        <h3>UIN Alauddin Makassar - Hajj and Umrah Management</h3>
-                        <p>Pursued foundational studies that enhanced my understanding of technology and information systems. This period helped me discover my passion for software development.</p>
+                        <h3 data-i18n="edu.uin_title">UIN Alauddin Makassar - Hajj and Umrah Management</h3>
+                        <p data-i18n="edu.uin_desc">Pursued foundational studies that enhanced my understanding of technology and information systems. This period helped me discover my passion for software development.</p>
                         <div class="timeline-icon">
                             <i class="fas fa-book"></i>
                         </div>
@@ -768,8 +793,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-year">2022 - 2025</div>
-                        <h3>STMIK Profesional Makassar - Information Systems</h3>
-                        <p>Graduated with a degree in Information Systems, specializing in software development and cloud computing.</p>
+                        <h3 data-i18n="edu.stmik_title">STMIK Profesional Makassar - Information Systems</h3>
+                        <p data-i18n="edu.stmik_desc">Graduated with a degree in Information Systems, specializing in software development and cloud computing.</p>
                         <div class="timeline-icon">
                             <i class="fas fa-laptop-code"></i>
                         </div>
@@ -783,8 +808,8 @@
     <section class="work-experience-section" id="experience">
         <div class="work-experience-container">
             <div class="section-header scroll-reveal">
-                <h2>My <span>Experience</span></h2>
-                <p>My career path and professional contributions</p>
+                <h2 data-i18n="exp.title">My <span>Experience</span></h2>
+                <p data-i18n="exp.subtitle">My career path and professional contributions</p>
             </div>
             
             <div class="experience-tabs-wrapper scroll-reveal-scale">
@@ -808,43 +833,43 @@
                     <!-- Panel 0: PT Hadji Kalla -->
                     <div class="experience-panel active" id="panel-0">
                         <div class="panel-header">
-                            <h3 class="panel-title">ERP Developer Specialist <span class="at">@</span> <a href="https://kalla.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Hadji Kalla</a></h3>
-                            <span class="panel-date">Oct 2025 - Apr 2026</span>
+                            <h3 class="panel-title"><span data-i18n="exp.kalla_role">ERP Developer Specialist</span> <span class="at">@</span> <a href="https://kalla.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Hadji Kalla</a></h3>
+                            <span class="panel-date" data-i18n="exp.kalla_date">Oct 2025 - Apr 2026</span>
                         </div>
-                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> Makassar, Indonesia</div>
+                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> <span data-i18n="exp.kalla_loc">Makassar, Indonesia</span></div>
                         <ul class="panel-desc">
-                            <li>Developed and customized Odoo modules for enterprise business requirements across Kalla Group subsidiaries, supporting 100+ fleet vehicles in the Kalla Transportation & Logistics division.</li>
-                            <li>Built backend system and REST APIs for Jejak Kebaikan, an internal donation platform that processed IDR 12M+ across 2 campaigns with 50+ active users.</li>
-                            <li>Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles, eliminated manual tracking and reduced document processing time.</li>
-                            <li>Integrated Google Drive API (OAuth2) for document storage and implemented scheduling with retry mechanism for background tasks.</li>
+                            <li data-i18n="exp.kalla_desc1">Developed and customized Odoo modules for enterprise business requirements across Kalla Group subsidiaries, supporting 100+ fleet vehicles in the Kalla Transportation & Logistics division.</li>
+                            <li data-i18n="exp.kalla_desc2">Built backend system and REST APIs for Jejak Kebaikan, an internal donation platform that processed IDR 12M+ across 2 campaigns with 50+ active users.</li>
+                            <li data-i18n="exp.kalla_desc3">Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles, eliminated manual tracking and reduced document processing time.</li>
+                            <li data-i18n="exp.kalla_desc4">Integrated Google Drive API (OAuth2) for document storage and implemented scheduling with retry mechanism for background tasks.</li>
                         </ul>
                     </div>
 
                     <!-- Panel 1: PT Telkom Indonesia -->
                     <div class="experience-panel" id="panel-1">
                         <div class="panel-header">
-                            <h3 class="panel-title">Software Developer <span class="at">@</span> <a href="https://www.telkom.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Telkom Indonesia</a></h3>
-                            <span class="panel-date">Apr 2025 - Jun 2025</span>
+                            <h3 class="panel-title"><span data-i18n="exp.telkom_role">Software Developer</span> <span class="at">@</span> <a href="https://www.telkom.co.id/" target="_blank" rel="noopener noreferrer" class="company-link">PT Telkom Indonesia</a></h3>
+                            <span class="panel-date" data-i18n="exp.telkom_date">Apr 2025 - Jun 2025</span>
                         </div>
-                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> Regional 5 &bull; Makassar, Indonesia</div>
+                        <div class="panel-location"><i class="fas fa-map-marker-alt"></i> <span data-i18n="exp.telkom_loc">Regional 5 &bull; Makassar, Indonesia</span></div>
                         <ul class="panel-desc">
-                            <li>Built GenZ, an internal web platform (Laravel/PHP) for cross-departmental data centralization and real-time monitoring across modules including inventory, attendance, and activity log.</li>
-                            <li>Detected and formally reported 20+ sensitive data leak incidents through systematic cyber patrol activities, creating a structured early-warning workflow.</li>
-                            <li>Supported network infrastructure setup including device configuration and internal connectivity.</li>
+                            <li data-i18n="exp.telkom_desc1">Built GenZ, an internal web platform (Laravel/PHP) for cross-departmental data centralization and real-time monitoring across modules including inventory, attendance, and activity log.</li>
+                            <li data-i18n="exp.telkom_desc2">Detected and formally reported 20+ sensitive data leak incidents through systematic cyber patrol activities, creating a structured early-warning workflow.</li>
+                            <li data-i18n="exp.telkom_desc3">Supported network infrastructure setup including device configuration and internal connectivity.</li>
                         </ul>
                     </div>
 
                     <!-- Panel 2: Bangkit Academy -->
                     <div class="experience-panel" id="panel-2">
                         <div class="panel-header">
-                            <h3 class="panel-title">Cloud Computing Cohort <span class="at">@</span> <a href="https://contributors.bangkit.academy/" target="_blank" rel="noopener noreferrer" class="company-link">Bangkit Academy</a></h3>
-                            <span class="panel-date">Sep 2024 - Jan 2025</span>
+                            <h3 class="panel-title"><span data-i18n="exp.bangkit_role">Cloud Computing Cohort</span> <span class="at">@</span> <a href="https://contributors.bangkit.academy/" target="_blank" rel="noopener noreferrer" class="company-link">Bangkit Academy</a></h3>
+                            <span class="panel-date" data-i18n="exp.bangkit_date">Sep 2024 - Jan 2025</span>
                         </div>
-                        <div class="panel-location"><i class="fas fa-certificate"></i> National Digital Program by Google, GoTo, Traveloka</div>
+                        <div class="panel-location"><i class="fas fa-certificate"></i> <span data-i18n="exp.bangkit_loc">National Digital Program by Google, GoTo, Traveloka</span></div>
                         <ul class="panel-desc">
-                            <li>Completed over 900 hours of intensive learning covering cloud infrastructure, web development, and soft skills.</li>
-                            <li>Collaborated in a cross-functional team as the Cloud Engineer for the capstone project "Fridge Recipe", a REST API-based web application.</li>
-                            <li>Deployed frontend on Google App Engine, backend APIs on Cloud Run, and set up Cloud Storage and Cloud SQL databases on Google Cloud Platform.</li>
+                            <li data-i18n="exp.bangkit_desc1">Completed over 900 hours of intensive learning covering cloud infrastructure, web development, and soft skills.</li>
+                            <li data-i18n="exp.bangkit_desc2">Collaborated in a cross-functional team as the Cloud Engineer for the capstone project "Fridge Recipe", a REST API-based web application.</li>
+                            <li data-i18n="exp.bangkit_desc3">Deployed frontend on Google App Engine, backend APIs on Cloud Run, and set up Cloud Storage and Cloud SQL databases on Google Cloud Platform.</li>
                         </ul>
                     </div>
                 </div>
@@ -856,8 +881,8 @@
     <section class="experience-section" id="projects">
         <div class="experience-container">
             <div class="section-header scroll-reveal">
-                <h2>My <span>Projects</span></h2>
-                <p>Here are some of my latest projects that showcase my skills.</p>
+                <h2 data-i18n="projects.title">My <span>Projects</span></h2>
+                <p data-i18n="projects.subtitle">Here are some of my latest projects that showcase my skills.</p>
             </div>
             
             <div class="experience-slider scroll-reveal-scale">
@@ -870,7 +895,7 @@
                                 </a>
                             </div>
                             <div class="slide-info">
-                                <h3><a href="https://jejak-kebaikan.kalla.co.id/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Jejak Kebaikan: Donation Platform</a></h3>
+                                <h3 data-i18n="projects.p1_title"><a href="https://jejak-kebaikan.kalla.co.id/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Jejak Kebaikan: Donation Platform</a></h3>
                                 <div class="project-tags">
                                     <span class="tag">NodeJS</span>
                                     <span class="tag">NestJS</span>
@@ -880,7 +905,7 @@
                                     <span class="tag">SSO ESS</span>
                                     <span class="tag">TypeScript</span>
                                 </div>
-                                <p>The Jejak Kebaikan website is a donation platform designed to facilitate charitable giving and track the impact of donations. It features a user-friendly interface for donors to browse and contribute to various causes, along with a transparent system for displaying how funds are utilized. The platform also includes reporting tools to help organizations showcase their achievements and maintain accountability.</p>
+                                <p data-i18n="projects.p1_desc">The Jejak Kebaikan website is a donation platform designed to facilitate charitable giving and track the impact of donations. It features a user-friendly interface for donors to browse and contribute to various causes, along with a transparent system for displaying how funds are utilized. The platform also includes reporting tools to help organizations showcase their achievements and maintain accountability.</p>
                             </div>
                         </div>
                     </div>
@@ -890,14 +915,14 @@
                                 <img loading="lazy" decoding="async" src="img/genzz.webp" alt="Movie Theater Website" width="1200" height="821">
                             </div>
                             <div class="slide-info">
-                                <h3>GenZ: Internal Data Integration and Monitoring System for Telkom Regional 5</h3>
+                                <h3 data-i18n="projects.p2_title">GenZ: Internal Data Integration and Monitoring System for Telkom Regional 5</h3>
                                 <div class="project-tags">
                                     <span class="tag">Laravel</span>
                                     <span class="tag">MySQL</span>
                                     <span class="tag">REST API</span>
                                     <span class="tag">Telegram Bot API</span>
                                 </div>
-                                <p>The GenZ website is an internal platform developed for Telkom Regional 5 to streamline operations and centralize company data. It features modules including Activity Logs, Inventory Management with report generation (PDF/Excel), Document Handling, Guest Book, and Room Booking. Supported by an interactive dashboard and structured digital documentation, GenZ ensures efficient workflows and better data management across the organization. In addition, the system integrates with the Telegram API to provide instant notifications, keeping users updated on important activities in real time.</p>
+                                <p data-i18n="projects.p2_desc">The GenZ website is an internal platform developed for Telkom Regional 5 to streamline operations and centralize company data. It features modules including Activity Logs, Inventory Management with report generation (PDF/Excel), Document Handling, Guest Book, and Room Booking. Supported by an interactive dashboard and structured digital documentation, GenZ ensures efficient workflows and better data management across the organization. In addition, the system integrates with the Telegram API to provide instant notifications, keeping users updated on important activities in real time.</p>
                             </div>
                         </div>
                     </div>
@@ -907,18 +932,14 @@
                                 <img loading="lazy" decoding="async" src="img/FR.webp" alt="Fridge Recipe Application" width="1200" height="823">
                             </div>
                             <div class="slide-info">
-                                <h3>Fridge Recipe: Smart Recipe Finder Based on Available Ingredients</h3>
+                                <h3 data-i18n="projects.p3_title">Fridge Recipe: Smart Recipe Finder Based on Available Ingredients</h3>
                                 <div class="project-tags">
                                     <span class="tag">Node.js</span>
                                     <span class="tag">RESTful API</span>
                                     <span class="tag">Google Cloud Platform</span>
                                     <span class="tag">JavaScript</span>
                                 </div>
-                                <p>Fridge Recipe is a web-based application that helps users discover cooking recipes based on the ingredients 
-                                    they already have in their fridge. Users can input available ingredients, search for matching recipes, and 
-                                    save favorites by logging in. The platform is powered by a REST API and deployed on Google Cloud Platform 
-                                    (GCP), ensuring scalability, reliability, and seamless access to diverse recipe recommendations. This 
-                                    application aims to reduce food waste while making cooking easier and more enjoyable.</p>
+                                <p data-i18n="projects.p3_desc">Fridge Recipe is a web-based application that helps users discover cooking recipes based on the ingredients they already have in their fridge. Users can input available ingredients, search for matching recipes, and save favorites by logging in. The platform is powered by a REST API and deployed on Google Cloud Platform (GCP), ensuring scalability, reliability, and seamless access to diverse recipe recommendations. This application aims to reduce food waste while making cooking easier and more enjoyable.</p>
                             </div>
                         </div>
                     </div>
@@ -928,18 +949,13 @@
                                 <img loading="lazy" decoding="async" src="img/LDII.webp" alt="LDII Website" width="1200" height="831">
                             </div>
                             <div class="slide-info">
-                                <h3>LDII Makassar</h3>
+                                <h3 data-i18n="projects.p4_title">LDII Makassar</h3>
                                 <div class="project-tags">
                                     <span class="tag">Laravel</span>
                                     <span class="tag">Hostinger</span>
                                     <span class="tag">MySQL</span>
                                 </div>
-                                <p>This website is a content management platform for a pencak silat organization, featuring news articles, 
-                                    a photo gallery, organizational profiles (vision, mission, and management), and social media integration. 
-                                    It also includes an admin dashboard for managing articles, galleries, and member information, serving as 
-                                    a digital hub to share updates, showcase activities, and engage with the public. It helps preserve 
-                                    organizational identity through structured content. The platform also supports better communication 
-                                    between members and the community.</p>
+                                <p data-i18n="projects.p4_desc">This website is a content management platform for a pencak silat organization, featuring news articles, a photo gallery, organizational profiles (vision, mission, and management), and social media integration. It also includes an admin dashboard for managing articles, galleries, and member information, serving as a digital hub to share updates, showcase activities, and engage with the public. It helps preserve organizational identity through structured content. The platform also supports better communication between members and the community.</p>
                             </div>
                         </div>
                     </div>
@@ -949,18 +965,13 @@
                                 <img loading="lazy" decoding="async" src="img/skb.webp" alt="Portfolio Website" width="1200" height="850">
                             </div>
                             <div class="slide-info">
-                                <h3>Bupati Decree Submission System</h3>
+                                <h3 data-i18n="projects.p5_title">Bupati Decree Submission System</h3>
                                 <div class="project-tags">
                                     <span class="tag">Laravel</span>
                                     <span class="tag">Bootstrap</span>
                                     <span class="tag">MySQL</span>
                                 </div>
-                                <p>A web-based application for submitting and monitoring Bupati Decree (SK) requests online. The system allows 
-                                    users to apply, track the process status, and download approved decrees quickly, transparently, and 
-                                    efficiently. It provides an intuitive interface with clear steps for submission, review, and approval. 
-                                    Users can also verify their application status anytime using a unique submission code, ensuring accessibility 
-                                    and accountability. This solution helps improve efficiency in public administration by reducing manual 
-                                    paperwork and saving time.</p>
+                                <p data-i18n="projects.p5_desc">A web-based application for submitting and monitoring Bupati Decree (SK) requests online. The system allows users to apply, track the process status, and download approved decrees quickly, transparently, and efficiently. It provides an intuitive interface with clear steps for submission, review, and approval. Users can also verify their application status anytime using a unique submission code, ensuring accessibility and accountability. This solution helps improve efficiency in public administration by reducing manual paperwork and saving time.</p>
                             </div>
                         </div>
                     </div>
@@ -970,17 +981,13 @@
                                 <img loading="lazy" decoding="async" src="img/MIT.webp" alt="Transkripsi MIT" width="1200" height="800">
                             </div>
                             <div class="slide-info">
-                                <h3>Transcript of grades: STMIK Profesional Makassar</h3>
+                                <h3 data-i18n="projects.p6_title">Transcript of grades: STMIK Profesional Makassar</h3>
                                 <div class="project-tags">
                                     <span class="tag">App Inventor</span>
                                     <span class="tag">Spreadsheet</span>
                                     <span class="tag">Google Play Console</span>
                                 </div>
-                                <p>This mobile application is designed for STMIK Profesional Makassar students to easily access their academic 
-                                    transcripts and institutional information. It allows users to check grades by entering their student ID, 
-                                    view a detailed transcript of courses, SKS, and grades, and access academic calendars. The app also provides 
-                                    contact information, location maps, and quick communication options such as phone, WhatsApp, email, and 
-                                    website links.</p>
+                                <p data-i18n="projects.p6_desc">This mobile application is designed for STMIK Profesional Makassar students to easily access their academic transcripts and institutional information. It allows users to check grades by entering their student ID, view a detailed transcript of courses, SKS, and grades, and access academic calendars. The app also provides contact information, location maps, and quick communication options such as phone, WhatsApp, email, and website links.</p>
                             </div>
                         </div>
                     </div>
@@ -990,17 +997,13 @@
                                 <img loading="lazy" decoding="async" src="img/RT.webp" alt="Quran Learning Center" width="1200" height="750">
                             </div>
                             <div class="slide-info">
-                                <h3>Rumah Tahfidz Website</h3>
+                                <h3 data-i18n="projects.p7_title">Rumah Tahfidz Website</h3>
                                 <div class="project-tags">
                                     <span class="tag">Php</span>
                                     <span class="tag">Javascript</span>
                                     <span class="tag">MySQL</span>
                                 </div>
-                                <p>The Rumah Tahfidz website is an information and registration platform for prospective Qur’an memorizers. 
-                                    It provides details on programs, vision and mission, showcases activities through a gallery, and offers 
-                                    online registration for easy access. With an admin login system, administrators can efficiently manage and 
-                                    update data related to Rumah Tahfidz. This makes the website a comprehensive digital solution for both the 
-                                    institution and its wider community needs, supporting education and religious development.</p>
+                                <p data-i18n="projects.p7_desc">The Rumah Tahfidz website is an information and registration platform for prospective Qur’an memorizers. It provides details on programs, vision and mission, showcases activities through a gallery, and offers online registration for easy access. With an admin login system, administrators can efficiently manage and update data related to Rumah Tahfidz. This makes the website a comprehensive digital solution for both the institution and its wider community needs, supporting education and religious development.</p>
                             </div>
                         </div>
                     </div>
@@ -1010,17 +1013,13 @@
                                 <img loading="lazy" decoding="async" src="img/skbup.webp" alt="SKB Ujung Pandang" width="1200" height="683">
                             </div>
                             <div class="slide-info">
-                                <h3>Smart Admission using SAW</h3>
+                                <h3 data-i18n="projects.p8_title">Smart Admission using SAW</h3>
                                 <div class="project-tags">
                                     <span class="tag">Laravel</span>
                                     <span class="tag">Bootstrap</span>
                                     <span class="tag">MySQL</span>
                                 </div>
-                                <p>This web-based system is developed to support the student admission process at SKB Ujung Pandang using the 
-                                    Simple Additive Weighting (SAW) method. It enables participants to register online, while administrators 
-                                    can manage data, set criteria, and run the SAW calculation to determine final scores and admission status. 
-                                    With automated ranking, clear result visualization, and an integrated dashboard, the system ensures 
-                                    efficiency, transparency, and fairness throughout the selection process.</p>
+                                <p data-i18n="projects.p8_desc">This web-based system is developed to support the student admission process at SKB Ujung Pandang using the Simple Additive Weighting (SAW) method. It enables participants to register online, while administrators can manage data, set criteria, and run the SAW calculation to determine final scores and admission status. With automated ranking, clear result visualization, and an integrated dashboard, the system ensures efficiency, transparency, and fairness throughout the selection process.</p>
                             </div>
                         </div>
                     </div>
@@ -1053,9 +1052,9 @@
     <section class="contact-section" id="contact">
         <div class="contact-container">
             <div class="section-header scroll-reveal">
-                <div class="section-badge">Get In Touch</div>
-                <h2>Let's Create Something <span class="gradient-text">Amazing</span> Together</h2>
-                <p>Ready to bring your ideas to life? Let's discuss your next project.</p>
+                <div class="section-badge" data-i18n="contact.badge">Get In Touch</div>
+                <h2 data-i18n="contact.title">Let's Create Something <span class="gradient-text">Amazing</span> Together</h2>
+                <p data-i18n="contact.subtitle">Ready to bring your ideas to life? Let's discuss your next project.</p>
             </div>
             
             <div class="contact-content">
@@ -1066,8 +1065,8 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="contact-details">
-                                <h3>Location</h3>
-                                <p>Makassar, South Sulawesi</p>
+                                <h3 data-i18n="contact.info_loc_title">Location</h3>
+                                <p data-i18n="contact.info_loc_val">Makassar, South Sulawesi</p>
                             </div>
                         </div>
                         
@@ -1076,7 +1075,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="contact-details">
-                                <h3>Email</h3>
+                                <h3 data-i18n="contact.info_email_title">Email</h3>
                                 <p>muhammadfauzina@gmail.com</p>
                             </div>
                         </div>
@@ -1086,14 +1085,14 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="contact-details">
-                                <h3>Availability</h3>
-                                <p>Open for opportunities</p>
+                                <h3 data-i18n="contact.info_avail_title">Availability</h3>
+                                <p data-i18n="contact.info_avail_val">Open for opportunities</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="social-media-card">
-                        <h3>Connect With Me</h3>
+                        <h3 data-i18n="contact.connect_title">Connect With Me</h3>
                         <div class="social-links">
                             <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" class="social-link linkedin" target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn Muhammad Fauzi Nauval">
                                 <i class="fa-brands fa-linkedin"></i>
@@ -1117,39 +1116,39 @@
                 
                 <div class="contact-form-card scroll-reveal-right">
                     <div class="form-header">
-                        <h3>Send me a message</h3>
-                        <p>I'll get back to you within 24 hours</p>
+                        <h3 data-i18n="contact.form_title">Send me a message</h3>
+                        <p data-i18n="contact.form_subtitle">I'll get back to you within 24 hours</p>
                     </div>
                     
                     <form id="contactForm" class="modern-form">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="text" id="name" name="name" required>
-                                <label for="name">Full Name</label>
+                                <label for="name" data-i18n="contact.form_label_name">Full Name</label>
                                 <div class="form-line"></div>
                             </div>
                             
                             <div class="form-group">
                                 <input type="email" id="email" name="email" required>
-                                <label for="email">Email Address</label>
+                                <label for="email" data-i18n="contact.form_label_email">Email Address</label>
                                 <div class="form-line"></div>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <input type="text" id="subject" name="subject" required>
-                            <label for="subject">Subject</label>
+                            <label for="subject" data-i18n="contact.form_label_subject">Subject</label>
                             <div class="form-line"></div>
                         </div>
                         
                         <div class="form-group">
                             <textarea id="message" name="message" rows="13" required></textarea>
-                            <label for="message">Your Message</label>
+                            <label for="message" data-i18n="contact.form_label_msg">Your Message</label>
                             <div class="form-line"></div>
                         </div>
                         
                         <button type="submit" class="btn btn-primary submit-btn">
-                            <span class="btn-text">Send Message</span>
+                            <span class="btn-text" data-i18n="contact.form_btn">Send Message</span>
                             <span class="btn-icon">
                                 <i class="fas fa-paper-plane"></i>
                             </span>
@@ -1185,10 +1184,10 @@
                 <!-- Brand / Intro Column -->
                 <div class="footer-col brand-col">
                     <a href="#" class="footer-logo">
-                        <img class="logo-icon" src="img/logo.webp" alt="Logo" width="28" height="28" onerror="this.style.display='none'">
+                        <img class="logo-icon" src="img/loader.webp" alt="Logo" width="28" height="28" onerror="this.style.display='none'">
                         <span class="logo-text">Fauzi<span class="accent">Dev</span></span>
                     </a>
-                    <p class="footer-desc">Crafting high-performance web applications and cloud solutions. Passionate about clean code, performance optimization, and interactive experiences.</p>
+                    <p class="footer-desc" data-i18n="footer.desc">Crafting high-performance web applications and cloud solutions. Passionate about clean code, performance optimization, and interactive experiences.</p>
                     <div class="footer-socials">
                         <a href="https://www.linkedin.com/in/muhammad-fauzi-nauval-477607312/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                         <a href="https://github.com/FauziNauvalAbrari" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -1199,33 +1198,33 @@
 
                 <!-- Navigation Column -->
                 <div class="footer-col links-col">
-                    <h3>Quick Links</h3>
+                    <h3 data-i18n="footer.col_links">Quick Links</h3>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#certificates">Certificates</a></li>
-                        <li><a href="#edu">Education</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#" data-i18n="nav.home">Home</a></li>
+                        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+                        <li><a href="#certificates" data-i18n="nav.certificates">Certificates</a></li>
+                        <li><a href="#edu" data-i18n="nav.education">Education</a></li>
+                        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+                        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+                        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                     </ul>
                 </div>
 
                 <!-- Expertise Column -->
                 <div class="footer-col links-col">
-                    <h3>What I Do</h3>
+                    <h3 data-i18n="footer.col_expertise">What I Do</h3>
                     <ul>
-                        <li><a href="#skills">Web Development</a></li>
-                        <li><a href="#skills">Cloud Infrastructure</a></li>
-                        <li><a href="#skills">Full Stack Systems</a></li>
-                        <li><a href="#skills">REST API Development</a></li>
-                        <li><a href="#skills">Responsive UI Design</a></li>
+                        <li><a href="#skills" data-i18n="footer.exp1">Web Development</a></li>
+                        <li><a href="#skills" data-i18n="footer.exp2">Cloud Infrastructure</a></li>
+                        <li><a href="#skills" data-i18n="footer.exp3">Full Stack Systems</a></li>
+                        <li><a href="#skills" data-i18n="footer.exp4">REST API Development</a></li>
+                        <li><a href="#skills" data-i18n="footer.exp5">Responsive UI Design</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact Info Column -->
                 <div class="footer-col contact-col">
-                    <h3>Get In Touch</h3>
+                    <h3 data-i18n="footer.col_contact">Get In Touch</h3>
                     <ul class="contact-info-list">
                         <li>
                             <i class="fas fa-envelope"></i>
@@ -1233,11 +1232,11 @@
                         </li>
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Makassar, South Sulawesi, Indonesia</span>
+                            <span data-i18n="footer.location_val">Makassar, South Sulawesi, Indonesia</span>
                         </li>
                         <li>
                             <i class="fas fa-briefcase"></i>
-                            <span class="status-badge"><span class="status-dot"></span> Available for projects</span>
+                            <span class="status-badge"><span class="status-dot"></span> <span data-i18n="footer.status">Available for projects</span></span>
                         </li>
                     </ul>
                 </div>
@@ -1245,15 +1244,285 @@
 
             <!-- Footer Bottom Bar -->
             <div class="footer-bottom">
-                <p>&copy; 2026 Muhammad Fauzi Nauval. All rights reserved.</p>
+                <p data-i18n="footer.copy">&copy; 2026 Muhammad Fauzi Nauval. All rights reserved.</p>
                 <div class="footer-meta">
-                    <span>Designed & Developed with Passion</span>
+                    <span data-i18n="footer.meta">Designed & Developed with Passion</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
+        const translations = {
+            en: {
+                nav: {
+                    home: "Home",
+                    skills: "Skills",
+                    certificates: "Certificates",
+                    education: "Education",
+                    experience: "Experience",
+                    projects: "Projects",
+                    contact: "Contact"
+                },
+                hero: {
+                    greeting: "👋 Hello, I'm",
+                    typing_prefix: "I'm a ",
+                    desc: "A learner passionate about technology, especially web development. Experienced in projects from organizational websites to decision-making applications. I believe every line of code is part of the journey to real solutions.",
+                    stats_projects: "Projects",
+                    stats_years: "Years Learning",
+                    stats_tech: "Technologies",
+                    btn_hire: "Hire Me",
+                    btn_work: "View Work",
+                    btn_cv: "Download CV"
+                },
+                skills: {
+                    title: "My <span>Skills</span>",
+                    subtitle: "Technologies and tools I work with",
+                    cat_frontend: "Frontend & UI",
+                    cat_backend: "Backend",
+                    cat_dbcloud: "Database & Cloud",
+                    cta: "Let's Work Together"
+                },
+                certs: {
+                    title: "My <span>Certificates</span>",
+                    subtitle: "Professional certifications and achievements",
+                    btn_show_more: "Show All Certificates",
+                    btn_show_less: "Show Less Certificates"
+                },
+                edu: {
+                    title: "My <span>Education</span>",
+                    subtitle: "My academic journey and achievements",
+                    man1_title: "MAN 1 Makassar - Mathematics and Science",
+                    man1_desc: "Completed high school education with focus on science and mathematics. Developed strong analytical thinking and problem-solving skills that laid the foundation for my technical career.",
+                    uin_title: "UIN Alauddin Makassar - Hajj and Umrah Management",
+                    uin_desc: "Pursued foundational studies that enhanced my understanding of technology and information systems. This period helped me discover my passion for software development.",
+                    stmik_title: "STMIK Profesional Makassar - Information Systems",
+                    stmik_desc: "Graduated with a degree in Information Systems, specializing in software development and cloud computing."
+                },
+                exp: {
+                    title: "My <span>Experience</span>",
+                    subtitle: "My career path and professional contributions",
+                    kalla_role: "ERP Developer Specialist",
+                    kalla_date: "Oct 2025 - Apr 2026",
+                    kalla_loc: "Makassar, Indonesia",
+                    kalla_desc1: "Developed and customized Odoo modules for enterprise business requirements across Kalla Group subsidiaries, supporting 100+ fleet vehicles in the Kalla Transportation & Logistics division.",
+                    kalla_desc2: "Built backend system and REST APIs for Jejak Kebaikan, an internal donation platform that processed IDR 12M+ across 2 campaigns with 50+ active users.",
+                    kalla_desc3: "Automated fleet document lifecycle for Kalla Transportation & Logistics, covering 100+ vehicles, eliminated manual tracking and reduced document processing time.",
+                    kalla_desc4: "Integrated Google Drive API (OAuth2) for document storage and implemented scheduling with retry mechanism for background tasks.",
+                    telkom_role: "Software Developer",
+                    telkom_date: "Apr 2025 - Jun 2025",
+                    telkom_loc: "Regional 5 &bull; Makassar, Indonesia",
+                    telkom_desc1: "Built GenZ, an internal web platform (Laravel/PHP) for cross-departmental data centralization and real-time monitoring across modules including inventory, attendance, and activity log.",
+                    telkom_desc2: "Detected and formally reported 20+ sensitive data leak incidents through systematic cyber patrol activities, creating a structured early-warning workflow.",
+                    telkom_desc3: "Supported network infrastructure setup including device configuration and internal connectivity.",
+                    bangkit_role: "Cloud Computing Cohort",
+                    bangkit_date: "Sep 2024 - Jan 2025",
+                    bangkit_loc: "National Digital Program by Google, GoTo, Traveloka",
+                    bangkit_desc1: "Completed over 900 hours of intensive learning covering cloud infrastructure, web development, and soft skills.",
+                    bangkit_desc2: "Collaborated in a cross-functional team as the Cloud Engineer for the capstone project \"Fridge Recipe\", a REST API-based web application.",
+                    bangkit_desc3: "Deployed frontend on Google App Engine, backend APIs on Cloud Run, and set up Cloud Storage and Cloud SQL databases on Google Cloud Platform."
+                },
+                projects: {
+                    title: "My <span>Projects</span>",
+                    subtitle: "Here are some of my latest projects that showcase my skills.",
+                    p1_title: "Jejak Kebaikan: Donation Platform",
+                    p1_desc: "The Jejak Kebaikan website is a donation platform designed to facilitate charitable giving and track the impact of donations. It features a user-friendly interface for donors to browse and contribute to various causes, along with a transparent system for displaying how funds are utilized. The platform also includes reporting tools to help organizations showcase their achievements and maintain accountability.",
+                    p2_title: "GenZ: Internal Data Integration and Monitoring System for Telkom Regional 5",
+                    p2_desc: "The GenZ website is an internal platform developed for Telkom Regional 5 to streamline operations and centralize company data. It features modules including Activity Logs, Inventory Management with report generation (PDF/Excel), Document Handling, Guest Book, and Room Booking. Supported by an interactive dashboard and structured digital documentation, GenZ ensures efficient workflows and better data management across the organization. In addition, the system integrates with the Telegram API to provide instant notifications, keeping users updated on important activities in real time.",
+                    p3_title: "Fridge Recipe: Smart Recipe Finder Based on Available Ingredients",
+                    p3_desc: "Fridge Recipe is a web-based application that helps users discover cooking recipes based on the ingredients they already have in their fridge. Users can input available ingredients, search for matching recipes, and save favorites by logging in. The platform is powered by a REST API and deployed on Google Cloud Platform (GCP), ensuring scalability, reliability, and seamless access to diverse recipe recommendations. This application aims to reduce food waste while making cooking easier and more enjoyable.",
+                    p4_title: "LDII Makassar",
+                    p4_desc: "This website is a content management platform for a pencak silat organization, featuring news articles, a photo gallery, organizational profiles (vision, mission, and management), and social media integration. It also includes an admin dashboard for managing articles, galleries, and member information, serving as a digital hub to share updates, showcase activities, and engage with the public. It helps preserve organizational identity through structured content. The platform also supports better communication between members and the community.",
+                    p5_title: "Bupati Decree Submission System",
+                    p5_desc: "A web-based application for submitting and monitoring Bupati Decree (SK) requests online. The system allows users to apply, track the process status, and download approved decrees quickly, transparently, and efficiently. It provides an intuitive interface with clear steps for submission, review, and approval. Users can also verify their application status anytime using a unique submission code, ensuring accessibility and accountability. This solution helps improve efficiency in public administration by reducing manual paperwork and saving time.",
+                    p6_title: "Transcript of grades: STMIK Profesional Makassar",
+                    p6_desc: "This mobile application is designed for STMIK Profesional Makassar students to easily access their academic transcripts and institutional information. It allows users to check grades by entering their student ID, view a detailed transcript of courses, SKS, and grades, and access academic calendars. The app also provides contact information, location maps, and quick communication options such as phone, WhatsApp, email, and website links.",
+                    p7_title: "Rumah Tahfidz Website",
+                    p7_desc: "The Rumah Tahfidz website is an information and registration platform for prospective Qur’an memorizers. It provides details on programs, vision and mission, showcases activities through a gallery, and offers online registration for easy access. With an admin login system, administrators can efficiently manage and update data related to Rumah Tahfidz. This makes the website a comprehensive digital solution for both the institution and its wider community needs, supporting education and religious development.",
+                    p8_title: "Smart Admission using SAW",
+                    p8_desc: "This web-based system is developed to support the student admission process at SKB Ujung Pandang using the Simple Additive Weighting (SAW) method. It enables participants to register online, while administrators can manage data, set criteria, and run the SAW calculation to determine final scores and admission status. With automated ranking, clear result visualization, and an integrated dashboard, the system ensures efficiency, transparency, and fairness throughout the selection process."
+                },
+                contact: {
+                    badge: "Get In Touch",
+                    title: "Let's Create Something <span class=\"gradient-text\">Amazing</span> Together",
+                    subtitle: "Ready to bring your ideas to life? Let's discuss your next project.",
+                    info_loc_title: "Location",
+                    info_loc_val: "Makassar, South Sulawesi",
+                    info_email_title: "Email",
+                    info_avail_title: "Availability",
+                    info_avail_val: "Open for opportunities",
+                    connect_title: "Connect With Me",
+                    form_title: "Send me a message",
+                    form_subtitle: "I'll get back to you within 24 hours",
+                    form_label_name: "Full Name",
+                    form_label_email: "Email Address",
+                    form_label_subject: "Subject",
+                    form_label_msg: "Your Message",
+                    form_btn: "Send Message"
+                },
+                footer: {
+                    desc: "Crafting high-performance web applications and cloud solutions. Passionate about clean code, performance optimization, and interactive experiences.",
+                    col_links: "Quick Links",
+                    col_expertise: "What I Do",
+                    col_contact: "Get In Touch",
+                    location_val: "Makassar, South Sulawesi, Indonesia",
+                    status: "Available for projects",
+                    copy: "&copy; 2026 Muhammad Fauzi Nauval. All rights reserved.",
+                    meta: "Designed & Developed with Passion",
+                    exp1: "Web Development",
+                    exp2: "Cloud Infrastructure",
+                    exp3: "Full Stack Systems",
+                    exp4: "REST API Development",
+                    exp5: "Responsive UI Design"
+                },
+                chatbot: {
+                    welcome: "Hello! I am Fauzi's virtual assistant. How can I help you today? Please choose a topic below or type your question.",
+                    placeholder: "Type your message...",
+                    toast_success: "Message sent successfully!",
+                    toast_fail: "Failed to send message.",
+                    toast_error: "Error sending message.",
+                    toast_audio_fail: "Failed to play audio",
+                    typing_indicator: "FauziDev Bot is typing..."
+                }
+            },
+            id: {
+                nav: {
+                    home: "Beranda",
+                    skills: "Skill",
+                    certificates: "Sertifikat",
+                    education: "Pendidikan",
+                    experience: "Pengalaman",
+                    projects: "Proyek",
+                    contact: "Kontak"
+                },
+                hero: {
+                    greeting: "👋 Halo, Saya",
+                    typing_prefix: "Saya seorang ",
+                    desc: "Seorang pembelajar yang bersemangat tentang teknologi, terutama pengembangan web. Berpengalaman dalam proyek-proyek mulai dari situs web organisasi hingga aplikasi pengambilan keputusan. Saya percaya setiap baris kode adalah bagian dari perjalanan menuju solusi nyata.",
+                    stats_projects: "Proyek",
+                    stats_years: "Tahun Belajar",
+                    stats_tech: "Teknologi",
+                    btn_hire: "Rekrut Saya",
+                    btn_work: "Lihat Karya",
+                    btn_cv: "Unduh CV"
+                },
+                skills: {
+                    title: "Skill <span>Saya</span>",
+                    subtitle: "Teknologi dan alat yang saya gunakan",
+                    cat_frontend: "Frontend & UI",
+                    cat_backend: "Backend",
+                    cat_dbcloud: "Database & Cloud",
+                    cta: "Mari Bekerja Sama"
+                },
+                certs: {
+                    title: "Sertifikat <span>Saya</span>",
+                    subtitle: "Sertifikasi profesional dan pencapaian",
+                    btn_show_more: "Tampilkan Semua Sertifikat",
+                    btn_show_less: "Sembunyikan Sertifikat"
+                },
+                edu: {
+                    title: "Pendidikan <span>Saya</span>",
+                    subtitle: "Perjalanan akademis dan pencapaian saya",
+                    man1_title: "MAN 1 Makassar - Matematika dan IPA",
+                    man1_desc: "Menyelesaikan pendidikan menengah atas dengan fokus pada sains dan matematika. Mengembangkan pemikiran analitis yang kuat dan keterampilan memecahkan masalah yang meletakkan dasar bagi karir teknis saya.",
+                    uin_title: "UIN Alauddin Makassar - Manajemen Dakwah (Haji & Umrah)",
+                    uin_desc: "Menjalani studi dasar yang meningkatkan pemahaman saya tentang teknologi dan sistem informasi. Periode ini membantu saya menemukan hasrat saya dalam pengembangan perangkat lunak.",
+                    stmik_title: "STMIK Profesional Makassar - Sistem Informasi",
+                    stmik_desc: "Lulus dengan gelar Sarjana Sistem Informasi, berspesialisasi dalam pengembangan perangkat lunak dan komputasi awan."
+                },
+                exp: {
+                    title: "Pengalaman <span>Saya</span>",
+                    subtitle: "Jalur karir dan kontribusi profesional saya",
+                    kalla_role: "Spesialis Pengembang ERP",
+                    kalla_date: "Okt 2025 - Apr 2026",
+                    kalla_loc: "Makassar, Indonesia",
+                    kalla_desc1: "Mengembangkan dan menyesuaikan modul Odoo untuk kebutuhan bisnis korporat di seluruh anak perusahaan Kalla Group, mendukung 100+ armada kendaraan di divisi Kalla Transportasi & Logistik.",
+                    kalla_desc2: "Membangun sistem backend dan REST API untuk Jejak Kebaikan, sebuah platform donasi internal yang memproses Rp12 juta+ dalam 2 kampanye dengan 50+ pengguna aktif.",
+                    kalla_desc3: "Mengotomatiskan siklus dokumen armada kendaraan untuk Kalla Transportasi & Logistik, mencakup 100+ kendaraan, menghilangkan pelacakan manual dan mengurangi waktu pemrosesan dokumen.",
+                    kalla_desc4: "Mengintegrasikan Google Drive API (OAuth2) untuk penyimpanan dokumen dan menerapkan penjadwalan dengan mekanisme percobaan kembali untuk tugas-tugas di latar belakang.",
+                    telkom_role: "Pengembang Perangkat Lunak",
+                    telkom_date: "Apr 2025 - Jun 2025",
+                    telkom_loc: "Regional 5 &bull; Makassar, Indonesia",
+                    telkom_desc1: "Membangun GenZ, sebuah platform web internal (Laravel/PHP) untuk sentralisasi data antar-departemen dan pemantauan waktu nyata di berbagai modul termasuk inventaris, kehadiran, dan log aktivitas.",
+                    telkom_desc2: "Mendeteksi dan melaporkan secara resmi 20+ insiden kebocoran data sensitif melalui kegiatan patroli siber yang sistematis, menciptakan alur kerja peringatan dini terstruktur.",
+                    telkom_desc3: "Mendukung penyetelan infrastruktur jaringan termasuk konfigurasi perangkat dan konektivitas internal.",
+                    bangkit_role: "Peserta Cloud Computing",
+                    bangkit_date: "Sep 2024 - Jan 2025",
+                    bangkit_loc: "Program Digital Nasional oleh Google, GoTo, Traveloka",
+                    bangkit_desc1: "Menyelesaikan lebih dari 900 jam pembelajaran intensif yang mencakup infrastruktur cloud, pengembangan web, dan soft skills.",
+                    bangkit_desc2: "Berkolaborasi dalam tim lintas fungsi sebagai Cloud Engineer untuk proyek akhir (capstone) \"Fridge Recipe\", aplikasi web berbasis REST API.",
+                    bangkit_desc3: "Menerapkan frontend di Google App Engine, backend API di Cloud Run, serta menyiapkan database Cloud Storage dan Cloud SQL di Google Cloud Platform."
+                },
+                projects: {
+                    title: "Proyek <span>Saya</span>",
+                    subtitle: "Berikut beberapa proyek terbaru saya yang menunjukkan keahlian saya.",
+                    p1_title: "Jejak Kebaikan: Platform Donasi",
+                    p1_desc: "Situs web Jejak Kebaikan adalah platform donasi yang dirancang untuk memfasilitasi pemberian amal dan melacak dampak donasi. Platform ini memiliki antarmuka yang ramah pengguna bagi donatur untuk menelusuri dan berkontribusi pada berbagai kampanye, bersama dengan sistem transparan untuk menampilkan pemanfaatan dana. Platform ini juga menyertakan alat pelaporan untuk membantu organisasi memamerkan pencapaian mereka dan menjaga akuntabilitas.",
+                    p2_title: "GenZ: Sistem Integrasi Data dan Pemantauan Internal Telkom Regional 5",
+                    p2_desc: "Situs web GenZ adalah platform internal yang dikembangkan untuk Telkom Regional 5 guna merampingkan operasi dan memusatkan data perusahaan. Platform ini mencakup modul Log Aktivitas, Manajemen Inventaris dengan pembuatan laporan (PDF/Excel), Penanganan Dokumen, Buku Tamu, dan Pemesanan Ruangan. Didukung oleh dasbor interaktif dan dokumentasi digital terstruktur, GenZ memastikan alur kerja yang efisien dan pengelolaan data yang lebih baik di seluruh organisasi. Selain itu, sistem ini terintegrasi dengan Telegram API untuk memberikan notifikasi instan, menjaga pengguna tetap terbarui pada aktivitas penting secara real time.",
+                    p3_title: "Fridge Recipe: Pencari Resep Pintar Berdasarkan Bahan Makanan yang Tersedia",
+                    p3_desc: "Fridge Recipe adalah aplikasi berbasis web yang membantu pengguna menemukan resep masakan berdasarkan bahan-bahan yang sudah ada di kulkas mereka. Pengguna dapat memasukkan bahan yang tersedia, mencari resep yang cocok, dan menyimpan favorit dengan masuk ke akun mereka. Platform ini didukung oleh REST API dan diterapkan di Google Cloud Platform (GCP), memastikan skalabilitas, keandalan, dan akses mulus ke berbagai rekomendasi resep. Aplikasi ini bertujuan untuk mengurangi sampah makanan sekaligus membuat memasak lebih mudah dan menyenangkan.",
+                    p4_title: "LDII Makassar",
+                    p4_desc: "Situs web ini adalah platform manajemen konten untuk organisasi pencak silat, yang menampilkan artikel berita, galeri foto, profil organisasi (visi, misi, dan kepengurusan), serta integrasi media sosial. Ini juga mencakup dasbor admin untuk mengelola artikel, galeri, dan informasi anggota, berfungsi sebagai pusat digital untuk membagikan pembaruan, memamerkan aktivitas, dan berinteraksi dengan publik. Ini membantu melestarikan identitas organisasi melalui konten terstruktur. Platform ini juga mendukung komunikasi yang lebih baik antara anggota dan komunitas.",
+                    p5_title: "Sistem Pengajuan Surat Keputusan Bupati",
+                    p5_desc: "Aplikasi berbasis web untuk mengajukan dan memantau permintaan Surat Keputusan (SK) Bupati secara online. Sistem ini memungkinkan pengguna mengajukan permohonan, melacak status proses, dan mengunduh keputusan yang disetujui dengan cepat, transparan, dan efisien. Menyediakan antarmuka intuitif dengan langkah-langkah jelas untuk pengajuan, peninjauan, dan persetujuan. Pengguna juga dapat memverifikasi status pengajuan mereka kapan saja menggunakan kode pengajuan unik, memastikan aksesibilitas dan akuntabilitas. Solusi ini membantu meningkatkan efisiensi dalam administrasi publik dengan mengurangi dokumen manual dan menghemat waktu.",
+                    p6_title: "Aplikasi Transkrip Nilai: STMIK Profesional Makassar",
+                    p6_desc: "Aplikasi seluler ini dirancang bagi mahasiswa STMIK Profesional Makassar untuk dengan mudah mengakses transkrip akademik dan informasi institusi mereka. Memungkinkan pengguna memeriksa nilai dengan memasukkan NIM mereka, melihat transkrip rinci mata kuliah, SKS, dan nilai, serta mengakses kalender akademik. Aplikasi ini juga menyediakan informasi kontak, peta lokasi, dan opsi komunikasi cepat seperti telepon, WhatsApp, email, dan tautan situs web.",
+                    p7_title: "Situs Web Rumah Tahfidz",
+                    p7_desc: "Situs web Rumah Tahfidz adalah platform informasi dan pendaftaran bagi calon penghafal Al-Qur'an. Menyediakan rincian program, visi dan misi, memamerkan aktivitas melalui galeri, dan menawarkan pendaftaran online untuk akses mudah. Dengan sistem login admin, administrator dapat mengelola dan memperbarui data terkait Rumah Tahfidz secara efisien. Ini menjadikan situs web solusi digital komprehensif bagi institusi maupun kebutuhan masyarakat yang lebih luas, mendukung pendidikan dan pengembangan keagamaan.",
+                    p8_title: "Smart Penerimaan Siswa Baru menggunakan SAW",
+                    p8_desc: "Sistem berbasis web ini dikembangkan untuk mendukung proses penerimaan siswa di SKB Ujung Pandang menggunakan metode Simple Additive Weighting (SAW). Ini memungkinkan peserta mendaftar secara online, sementara administrator dapat mengelola data, menetapkan kriteria, dan menjalankan perhitungan SAW untuk menentukan nilai akhir dan status penerimaan. Dengan pemeringkatan otomatis, visualisasi hasil yang jelas, dan dasbor terintegrasi, sistem ini menjamin efisiensi, transparansi, dan keadilan di seluruh proses seleksi."
+                },
+                contact: {
+                    badge: "Hubungi Saya",
+                    title: "Mari Buat Sesuatu yang <span class=\"gradient-text\">Luar Biasa</span> Bersama",
+                    subtitle: "Siap mewujudkan ide Anda? Mari diskusikan proyek Anda berikutnya.",
+                    info_loc_title: "Lokasi",
+                    info_loc_val: "Makassar, Sulawesi Selatan",
+                    info_email_title: "Email",
+                    info_avail_title: "Ketersediaan",
+                    info_avail_val: "Terbuka untuk peluang baru",
+                    connect_title: "Hubungkan Dengan Saya",
+                    form_title: "Kirim pesan untuk saya",
+                    form_subtitle: "Saya akan membalas Anda dalam waktu 24 jam",
+                    form_label_name: "Nama Lengkap",
+                    form_label_email: "Alamat Email",
+                    form_label_subject: "Subjek",
+                    form_label_msg: "Pesan Anda",
+                    form_btn: "Kirim Pesan"
+                },
+                footer: {
+                    desc: "Membuat aplikasi web berperforma tinggi dan solusi cloud. Menyukai kode yang bersih, optimalisasi performa, dan pengalaman interaktif.",
+                    col_links: "Tautan Cepat",
+                    col_expertise: "Keahlian Saya",
+                    col_contact: "Hubungi Saya",
+                    location_val: "Makassar, Sulawesi Selatan, Indonesia",
+                    status: "Tersedia untuk proyek",
+                    copy: "&copy; 2026 Muhammad Fauzi Nauval. Hak cipta dilindungi.",
+                    meta: "Didesain & Dikembangkan dengan Sepenuh Hati",
+                    exp1: "Pengembangan Web",
+                    exp2: "Infrastruktur Cloud",
+                    exp3: "Sistem Full Stack",
+                    exp4: "Pengembangan REST API",
+                    exp5: "Desain UI Responsif"
+                },
+                chatbot: {
+                    welcome: "Halo! Saya asisten virtual Fauzi. Ada yang bisa saya bantu hari ini? Silakan pilih salah satu topik di bawah atau ketik langsung pertanyaan Anda.",
+                    placeholder: "Ketik pesan Anda...",
+                    toast_success: "Pesan berhasil dikirim!",
+                    toast_fail: "Gagal mengirim pesan.",
+                    toast_error: "Terjadi kesalahan saat mengirim pesan.",
+                    toast_audio_fail: "Gagal memutar audio",
+                    typing_indicator: "FauziDev Bot sedang mengetik..."
+                }
+            }
+        };
+
+        const typingTexts = {
+            en: ['Web Developer', 'Cloud Computing Enthusiast', 'Full Stack Developer', 'Problem Solver'],
+            id: ['Pengembang Web', 'Peminat Cloud Computing', 'Pengembang Full Stack', 'Pemecah Masalah']
+        };
+
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
@@ -1292,6 +1561,105 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Language Selection Logic
+            let currentLang = localStorage.getItem('language') || 'en';
+
+            // Declare state variables early to avoid Temporal Dead Zone (TDZ) reference errors during initial setLanguage call
+            let certificatesVisible = false;
+            let hasGreeted = false;
+            
+            const textArray = [];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function setLanguage(lang) {
+                currentLang = lang;
+                localStorage.setItem('language', lang);
+                document.documentElement.setAttribute('lang', lang);
+                
+                // Update toggle button text
+                const langSpan = document.querySelector('#langToggle span');
+                if (langSpan) {
+                    langSpan.textContent = lang.toUpperCase();
+                }
+
+                // Update translatable elements
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    const keys = key.split('.');
+                    let transVal = translations[lang];
+                    
+                    for (let i = 0; i < keys.length; i++) {
+                        if (transVal) {
+                            transVal = transVal[keys[i]];
+                        }
+                    }
+                    
+                    if (transVal !== undefined) {
+                        if (el.tagName === 'H2' || el.tagName === 'H3' || transVal.includes('<span')) {
+                            el.innerHTML = transVal;
+                        } else {
+                            el.textContent = transVal;
+                        }
+                    }
+                });
+
+                // Update input placeholder
+                const chatbotInput = document.getElementById('chatbotInput');
+                if (chatbotInput) {
+                    chatbotInput.placeholder = translations[lang].chatbot.placeholder;
+                }
+
+                // Update show more certs button text based on certificatesVisible state
+                const showMoreBtn = document.getElementById('showMoreCertificates');
+                if (showMoreBtn) {
+                    const btnText = showMoreBtn.querySelector('span');
+                    if (btnText) {
+                        if (typeof certificatesVisible !== 'undefined' && certificatesVisible) {
+                            btnText.textContent = translations[lang].certs.btn_show_less;
+                        } else {
+                            btnText.textContent = translations[lang].certs.btn_show_more;
+                        }
+                    }
+                }
+
+                // Reset typing effect array
+                textArray.length = 0;
+                typingTexts[lang].forEach(txt => textArray.push(txt));
+                textIndex = 0;
+                charIndex = 0;
+                isDeleting = false;
+                const typedTextSpan = document.querySelector('.typing-text span.typed-text');
+                if (typedTextSpan) {
+                    typedTextSpan.textContent = '';
+                }
+
+                // Re-render chatbot chips if greeted
+                if (typeof hasGreeted !== 'undefined' && hasGreeted && typeof renderSuggestionChips === 'function') {
+                    renderSuggestionChips();
+                }
+            }
+
+            const langToggleBtn = document.getElementById('langToggle');
+            if (langToggleBtn) {
+                langToggleBtn.addEventListener('click', () => {
+                    // Smooth transition animation
+                    document.body.style.opacity = '0';
+                    setTimeout(() => {
+                        const newLang = currentLang === 'en' ? 'id' : 'en';
+                        setLanguage(newLang);
+                        document.body.style.opacity = '1';
+                    }, 150);
+                });
+                
+                // Add CSS transition to body for language switch transition
+                document.body.style.transition = 'opacity 0.15s ease';
+            }
+
+            // Call setLanguage initially
+            setLanguage(currentLang);
+
             // Theme Toggle Logic
             const themeToggleBtn = document.getElementById('themeToggle');
             const themeToggleIcon = themeToggleBtn.querySelector('i');
@@ -1379,7 +1747,7 @@
                         isAudioPlaying = false;
                         soundToggleIcon.className = 'fas fa-volume-mute';
                         soundToggleBtn.classList.remove('playing');
-                        showToast('Gagal memutar audio', true);
+                        showToast(translations[currentLang].chatbot.toast_audio_fail, true);
                     });
                 } else {
                     isAudioPlaying = false;
@@ -1595,15 +1963,23 @@
             const chatBadge = chatbotToggle.querySelector('.chat-badge');
 
             let isChatOpen = false;
-            let hasGreeted = false;
+            hasGreeted = false;
             let chatHistory = [];
 
-            const suggestions = [
-                { text: "🛠️ Skill", value: "skill" },
-                { text: "🚀 Proyek", value: "proyek" },
-                { text: "📧 Kontak", value: "kontak" },
-                { text: "🎓 Pendidikan", value: "pendidikan" }
-            ];
+            const suggestions = {
+                en: [
+                    { text: "🛠️ Skills", value: "skill" },
+                    { text: "🚀 Projects", value: "proyek" },
+                    { text: "📧 Contact", value: "kontak" },
+                    { text: "🎓 Education", value: "pendidikan" }
+                ],
+                id: [
+                    { text: "🛠️ Skill", value: "skill" },
+                    { text: "🚀 Proyek", value: "proyek" },
+                    { text: "📧 Kontak", value: "kontak" },
+                    { text: "🎓 Pendidikan", value: "pendidikan" }
+                ]
+            };
 
             // Helper function to attach custom cursor hover event to elements
             function registerChatbotHover(el) {
@@ -1724,7 +2100,8 @@
             // Render suggestion chips
             function renderSuggestionChips() {
                 chatbotSuggestions.innerHTML = '';
-                suggestions.forEach(suggest => {
+                const activeSuggestions = suggestions[currentLang] || suggestions['en'];
+                activeSuggestions.forEach(suggest => {
                     const chip = document.createElement('button');
                     chip.className = 'suggestion-chip';
                     chip.textContent = suggest.text;
@@ -1739,12 +2116,20 @@
             // Map suggestions to clear prompt text for Gemini
             function getSuggestionQuery(value) {
                 const queries = {
-                    skill: "Ceritakan tentang keahlian dan teknologi yang Anda kuasai.",
-                    proyek: "Apa saja proyek utama yang telah Anda kembangkan?",
-                    kontak: "Bagaimana cara menghubungi Anda atau melihat sosial media Anda?",
-                    pendidikan: "Ceritakan tentang latar belakang pendidikan dan sertifikasi Anda."
+                    en: {
+                        skill: "Tell me about your skills and technologies you master.",
+                        proyek: "What are the main projects you have developed?",
+                        kontak: "How can I contact you or view your social media?",
+                        pendidikan: "Tell me about your educational background and certifications."
+                    },
+                    id: {
+                        skill: "Ceritakan tentang keahlian dan teknologi yang Anda kuasai.",
+                        proyek: "Apa saja proyek utama yang telah Anda kembangkan?",
+                        kontak: "Bagaimana cara menghubungi Anda atau melihat sosial media Anda?",
+                        pendidikan: "Ceritakan tentang latar belakang pendidikan dan sertifikasi Anda."
+                    }
                 };
-                return queries[value] || value;
+                return queries[currentLang]?.[value] || value;
             }
 
             // Greeting triggering
@@ -1753,7 +2138,7 @@
                 showTypingIndicator();
                 setTimeout(() => {
                     hideTypingIndicator();
-                    const welcomeText = "Halo! Saya asisten virtual Fauzi. Ada yang bisa saya bantu hari ini? Silakan pilih salah satu topik di bawah atau ketik langsung pertanyaan Anda.";
+                    const welcomeText = translations[currentLang].chatbot.welcome;
                     appendChatMessage('bot', welcomeText);
                     chatHistory.push({ sender: 'bot', text: welcomeText });
                     renderSuggestionChips();
@@ -1780,7 +2165,8 @@
                         },
                         body: JSON.stringify({
                             message: promptText,
-                            history: chatHistory.slice(0, -1) // exclude the latest user message
+                            history: chatHistory.slice(0, -1), // exclude the latest user message
+                            lang: currentLang
                         })
                     });
 
@@ -1794,7 +2180,7 @@
                     }
 
                     const data = await response.json();
-                    const reply = data.reply || "Maaf, saya tidak bisa memproses jawaban saat ini.";
+                    const reply = data.reply || (currentLang === 'en' ? "Sorry, I cannot process the response at the moment." : "Maaf, saya tidak bisa memproses jawaban saat ini.");
                     
                     appendChatMessage('bot', reply);
                     chatHistory.push({ sender: 'bot', text: reply });
@@ -1807,16 +2193,24 @@
                                     window.location.hostname.endsWith('.local');
                                     
                     if (isLocal) {
-                        const localMock = "Halo! Ini adalah simulasi respons lokal (karena Anda menjalankan server lokal tanpa Vercel CLI). Setelah Anda men-deploy proyek ini ke Vercel, saya akan terhubung secara dinamis ke Gemini API menggunakan API Key yang aman.";
+                        const localMock = currentLang === 'en' ? 
+                            "Hello! This is a local simulated response (since you are running a local server without Vercel CLI). Once you deploy this project to Vercel, I will dynamically connect to the Gemini API using secure API keys." :
+                            "Halo! Ini adalah simulasi respons lokal (karena Anda menjalankan server lokal tanpa Vercel CLI). Setelah Anda men-deploy proyek ini ke Vercel, saya akan terhubung secara dinamis ke Gemini API menggunakan API Key yang aman.";
                         appendChatMessage('bot', localMock);
                         chatHistory.push({ sender: 'bot', text: localMock });
                     } else {
-                        let errReply = "Maaf, sepertinya saya sedang mengalami gangguan koneksi. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                        let errReply = currentLang === 'en' ?
+                            "Sorry, I seem to be experiencing connection issues. Please contact Fauzi directly via email at muhammadfauzina@gmail.com!" :
+                            "Maaf, sepertinya saya sedang mengalami gangguan koneksi. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
                         
                         if (error.status === 429) {
-                            errReply = "Waduh, asisten virtual sedang menerima terlalu banyak pertanyaan dari pengunjung saat ini (Limitasi Kuota API). Silakan tunggu beberapa saat lagi, atau hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                            errReply = currentLang === 'en' ?
+                                "Oops, the virtual assistant is receiving too many questions right now (API Rate Limit). Please wait a moment, or contact Fauzi directly via email at muhammadfauzina@gmail.com!" :
+                                "Waduh, asisten virtual sedang menerima terlalu banyak pertanyaan dari pengunjung saat ini (Limitasi Kuota API). Silakan tunggu beberapa saat lagi, atau hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
                         } else if (error.status === 500 || error.status === 503) {
-                            errReply = "Maaf, terjadi kesalahan konfigurasi pada server asisten virtual. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
+                            errReply = currentLang === 'en' ?
+                                "Sorry, a configuration error occurred on the virtual assistant server. Please contact Fauzi directly via email at muhammadfauzina@gmail.com!" :
+                                "Maaf, terjadi kesalahan konfigurasi pada server asisten virtual. Silakan hubungi Fauzi langsung via email di muhammadfauzina@gmail.com!";
                         }
                         
                         appendChatMessage('bot', errReply);
@@ -1889,11 +2283,7 @@
                 }
             });
 
-            const typingText = document.querySelector('.typing-text span');
-            const textArray = ['Web Developer', 'Cloud Computing Enthusiast', 'Full Stack Developer', 'Problem Solver'];
-            let textIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
+            const typingText = document.querySelector('.typing-text span.typed-text');
 
             function typeEffect() {
                 const currentText = textArray[textIndex];
@@ -2137,14 +2527,14 @@
                     });
 
                     if (response.ok) {
-                        showToast('Message sent successfully!');
+                        showToast(translations[currentLang].chatbot.toast_success);
                         form.reset();
                         form.querySelectorAll('.focused').forEach(el => el.classList.remove('focused'));
                     } else {
-                        showToast('Failed to send message.', true);
+                        showToast(translations[currentLang].chatbot.toast_fail, true);
                     }
                 } catch (error) {
-                    showToast('Error sending message.', true);
+                    showToast(translations[currentLang].chatbot.toast_error, true);
                 }
             });
 
@@ -2195,7 +2585,7 @@
 
             const showMoreBtn = document.getElementById('showMoreCertificates');
             const hiddenCertificates = document.querySelectorAll('.hidden-certificate');
-            let certificatesVisible = false;
+            certificatesVisible = false;
 
             showMoreBtn.addEventListener('click', function() {
                 certificatesVisible = !certificatesVisible;
