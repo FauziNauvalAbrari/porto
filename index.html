@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=8">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- Updated to modern Google Fonts matching design brief -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -2498,10 +2498,6 @@
                             updateTabIndicator(currentActiveTab);
                         }
                         
-                        if (typeof updateCertificatesVisibility === 'function') {
-                            updateCertificatesVisibility(true);
-                        }
-                        
                         resizeScheduled = false;
                     });
                 }
@@ -2588,63 +2584,37 @@
             });
 
             const showMoreBtn = document.getElementById('showMoreCertificates');
-            const allCertificates = document.querySelectorAll('.certificate-card');
+            const hiddenCertificates = document.querySelectorAll('.hidden-certificate');
             certificatesVisible = false;
-
-            function updateCertificatesVisibility(instant = false) {
-                const limit = window.innerWidth <= 768 ? 3 : 6;
-                
-                allCertificates.forEach((cert, index) => {
-                    if (index < limit) {
-                        cert.style.display = 'block';
-                        cert.classList.add('show');
-                    } else {
-                        if (certificatesVisible) {
-                            cert.style.display = 'block';
-                            if (instant) {
-                                cert.classList.add('show');
-                            } else {
-                                setTimeout(() => {
-                                    cert.classList.add('show');
-                                }, 50 + (index - limit) * 15);
-                            }
-                        } else {
-                            cert.classList.remove('show');
-                            if (instant) {
-                                cert.style.display = 'none';
-                            } else {
-                                setTimeout(() => {
-                                    if (!certificatesVisible) {
-                                        cert.style.display = 'none';
-                                    }
-                                }, 300);
-                            }
-                        }
-                    }
-                });
-
-                // Update button text and icon
-                if (showMoreBtn) {
-                    const btnText = showMoreBtn.querySelector('span');
-                    const btnIcon = showMoreBtn.querySelector('i');
-                    if (btnText && btnIcon) {
-                        if (certificatesVisible) {
-                            btnText.textContent = translations[currentLang].certs.btn_show_less;
-                            btnIcon.className = 'fas fa-chevron-up';
-                        } else {
-                            btnText.textContent = translations[currentLang].certs.btn_show_more;
-                            btnIcon.className = 'fas fa-chevron-down';
-                        }
-                    }
-                }
-            }
-
-            // Set initial state
-            updateCertificatesVisibility(true);
 
             showMoreBtn.addEventListener('click', function() {
                 certificatesVisible = !certificatesVisible;
-                updateCertificatesVisibility(false);
+                
+                hiddenCertificates.forEach(cert => {
+                    if (certificatesVisible) {
+                        cert.style.display = 'block';
+                        setTimeout(() => {
+                            cert.classList.add('show');
+                        }, 100);
+                    } else {
+                        cert.classList.remove('show');
+                        setTimeout(() => {
+                            cert.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Update button text and icon
+                const btnText = showMoreBtn.querySelector('span');
+                const btnIcon = showMoreBtn.querySelector('i');
+                
+                if (certificatesVisible) {
+                    btnText.textContent = 'Show Less Certificates';
+                    btnIcon.className = 'fas fa-chevron-up';
+                } else {
+                    btnText.textContent = 'Show All Certificates';
+                    btnIcon.className = 'fas fa-chevron-down';
+                }
             });
         });
 
