@@ -717,7 +717,7 @@ nav a.active {
   background-clip: text;
 }
 
-.home-content h3 {
+.home-content h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-muted);
@@ -2410,7 +2410,7 @@ nav a.active {
     font-size: 2.5rem;
   }
 
-  .home-content h3 {
+  .home-content h2 {
     font-size: 1.3rem;
   }
 
@@ -2637,7 +2637,7 @@ nav a.active {
     font-size: 2rem;
   }
 
-  .home-content h3 {
+  .home-content h2 {
     font-size: 1.1rem;
   }
 

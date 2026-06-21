@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <!-- Updated to modern Google Fonts matching design brief -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -167,7 +167,7 @@
                 <div class="home-content-inner" data-speed="0.01" data-scroll-speed="0.8">
                     <div class="greeting" data-i18n="hero.greeting">👋 Hello, I'm</div>
                     <h1>Muhammad <span class="gradient-text">Fauzi</span></h1>
-                    <h3 class="typing-text"><span data-i18n="hero.typing_prefix">I'm a </span><span class="typed-text"></span></h3>
+                    <h2 class="typing-text"><span data-i18n="hero.typing_prefix">I'm a </span><span class="typed-text"></span></h2>
                     <p class="description" data-i18n="hero.desc">A learner passionate about technology, especially web development. Experienced in projects from 
                         organizational websites to decision-making applications. I believe every line of code is part of the journey to real 
                         solutions.</p>
@@ -1026,10 +1026,10 @@
                 </div>
                 
                 <div class="slider-navigation">
-                    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">
+                    <button class="nav-btn prev-btn" onclick="changeSlide(-1)" aria-label="Previous project">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button class="nav-btn next-btn" onclick="changeSlide(1)">
+                    <button class="nav-btn next-btn" onclick="changeSlide(1)" aria-label="Next project">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
