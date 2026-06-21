@@ -2539,6 +2539,22 @@ nav a.active {
     max-width: 400px;
   }
 
+  /* Hide the 4th, 5th, and 6th certificate cards by default on mobile */
+  .certificates-grid .certificate-card:nth-child(4),
+  .certificates-grid .certificate-card:nth-child(5),
+  .certificates-grid .certificate-card:nth-child(6) {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .certificates-grid .certificate-card:nth-child(4).show,
+  .certificates-grid .certificate-card:nth-child(5).show,
+  .certificates-grid .certificate-card:nth-child(6).show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .certificate-info {
     padding: 1.25rem;
   }
