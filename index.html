@@ -211,9 +211,9 @@
                             <span data-i18n="hero.btn_work">View Work</span>
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="file/Resume-MuhammadFauziNauval-FS.pdf" class="btn btn-accent" target="_blank" download>
-                            <span data-i18n="hero.btn_cv">Download CV</span>
-                            <i class="fas fa-download"></i>
+                        <a href="https://drive.google.com/file/d/1__6mTmPqkYCU41ICUHLFeDdBJzdjdcIT/view?usp=sharing" class="btn btn-accent" target="_blank" rel="noopener noreferrer">
+                            <span data-i18n="hero.btn_cv">View Resume</span>
+                            <i class="fas fa-file-pdf"></i>
                         </a>
                     </div>
                 </div>
@@ -1273,7 +1273,7 @@
                     stats_tech: "Technologies",
                     btn_hire: "Hire Me",
                     btn_work: "View Work",
-                    btn_cv: "Download CV"
+                    btn_cv: "View Resume"
                 },
                 skills: {
                     title: "My <span>Skills</span>",
@@ -1404,7 +1404,7 @@
                     stats_tech: "Teknologi",
                     btn_hire: "Rekrut Saya",
                     btn_work: "Lihat Karya",
-                    btn_cv: "Unduh CV"
+                    btn_cv: "Lihat Resume"
                 },
                 skills: {
                     title: "Skill <span>Saya</span>",
@@ -2498,6 +2498,10 @@
                             updateTabIndicator(currentActiveTab);
                         }
                         
+                        if (typeof updateCertificatesVisibility === 'function') {
+                            updateCertificatesVisibility(true);
+                        }
+                        
                         resizeScheduled = false;
                     });
                 }
@@ -2584,37 +2588,63 @@
             });
 
             const showMoreBtn = document.getElementById('showMoreCertificates');
-            const hiddenCertificates = document.querySelectorAll('.hidden-certificate');
+            const allCertificates = document.querySelectorAll('.certificate-card');
             certificatesVisible = false;
+
+            function updateCertificatesVisibility(instant = false) {
+                const limit = window.innerWidth <= 768 ? 3 : 6;
+                
+                allCertificates.forEach((cert, index) => {
+                    if (index < limit) {
+                        cert.style.display = 'block';
+                        cert.classList.add('show');
+                    } else {
+                        if (certificatesVisible) {
+                            cert.style.display = 'block';
+                            if (instant) {
+                                cert.classList.add('show');
+                            } else {
+                                setTimeout(() => {
+                                    cert.classList.add('show');
+                                }, 50 + (index - limit) * 15);
+                            }
+                        } else {
+                            cert.classList.remove('show');
+                            if (instant) {
+                                cert.style.display = 'none';
+                            } else {
+                                setTimeout(() => {
+                                    if (!certificatesVisible) {
+                                        cert.style.display = 'none';
+                                    }
+                                }, 300);
+                            }
+                        }
+                    }
+                });
+
+                // Update button text and icon
+                if (showMoreBtn) {
+                    const btnText = showMoreBtn.querySelector('span');
+                    const btnIcon = showMoreBtn.querySelector('i');
+                    if (btnText && btnIcon) {
+                        if (certificatesVisible) {
+                            btnText.textContent = translations[currentLang].certs.btn_show_less;
+                            btnIcon.className = 'fas fa-chevron-up';
+                        } else {
+                            btnText.textContent = translations[currentLang].certs.btn_show_more;
+                            btnIcon.className = 'fas fa-chevron-down';
+                        }
+                    }
+                }
+            }
+
+            // Set initial state
+            updateCertificatesVisibility(true);
 
             showMoreBtn.addEventListener('click', function() {
                 certificatesVisible = !certificatesVisible;
-                
-                hiddenCertificates.forEach(cert => {
-                    if (certificatesVisible) {
-                        cert.style.display = 'block';
-                        setTimeout(() => {
-                            cert.classList.add('show');
-                        }, 100);
-                    } else {
-                        cert.classList.remove('show');
-                        setTimeout(() => {
-                            cert.style.display = 'none';
-                        }, 300);
-                    }
-                });
-                
-                // Update button text and icon
-                const btnText = showMoreBtn.querySelector('span');
-                const btnIcon = showMoreBtn.querySelector('i');
-                
-                if (certificatesVisible) {
-                    btnText.textContent = 'Show Less Certificates';
-                    btnIcon.className = 'fas fa-chevron-up';
-                } else {
-                    btnText.textContent = 'Show All Certificates';
-                    btnIcon.className = 'fas fa-chevron-down';
-                }
+                updateCertificatesVisibility(false);
             });
         });
 
